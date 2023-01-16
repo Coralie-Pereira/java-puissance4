@@ -1,5 +1,5 @@
 package Classes;
-import Classes.Piece;
+
 
 public class Grid{
 
@@ -54,5 +54,17 @@ public class Grid{
             System.out.println("Mauvaise colonne");
         }
     }
+
+    public boolean isFull(){
+        for (int line = 0; line < ROWS; line++) {
+            for (int column = 0; column < COLS; column++) {
+                if(this.grid[line][column].getColor() ==null){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
     
 }

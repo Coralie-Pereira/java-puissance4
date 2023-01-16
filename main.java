@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import Classes.*;
 
 public class main {
@@ -5,19 +7,21 @@ public class main {
         
         Grid grid = new Grid();
         grid.createGrid();
-        
-        grid.addPiece(6); //Try 
-        grid.addPiece(5);
-        grid.addPiece(5);
-        grid.addPiece(5);
-        grid.addPiece(5);
-        grid.addPiece(5);
-        grid.addPiece(9);
-       
-
- 
-
         grid.printGrid();
+
+        while(!grid.isFull()){
+            grid.addPiece(chooseColumn());
+            grid.printGrid();
+       }
     
+    }
+
+    public static int chooseColumn(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Veuillez choisir une colonne entre 0 et 6");
+        int choice = scan.nextInt();
+        return choice;
+
+
     }
 }
