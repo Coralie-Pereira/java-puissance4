@@ -36,12 +36,13 @@ public class Piece {
 
     @Override
     public String toString(){
-  
         
-        /*if(this.color ==null){
+        if(this.color ==null){
             return "_";
-        }*/
-        return "_";
+        }
+        
+        return "O";
+        
     
 
     }

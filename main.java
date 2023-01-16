@@ -5,6 +5,18 @@ public class main {
         
         Grid grid = new Grid();
         grid.createGrid();
+        
+        grid.addPiece(6); //Try 
+        grid.addPiece(5);
+        grid.addPiece(5);
+        grid.addPiece(5);
+        grid.addPiece(5);
+        grid.addPiece(5);
+        grid.addPiece(9);
+       
+
+ 
+
         grid.printGrid();
     
     }

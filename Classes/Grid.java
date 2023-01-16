@@ -33,5 +33,26 @@ public class Grid{
             System.out.println();
         }
     }
+
+    public void addPiece(int column){
+        //args : color (String)
+        if(column>=0 && column<=COLS){
+        
+            for(int line = ROWS-1; line>=0; line--){
+                if(this.grid[line][column].getColor()==null){
+                    this.grid[line][column].setColor("red");
+                    return;
+                }
+                else{
+                    if(line==0){
+                        System.out.println("Impossible");
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Mauvaise colonne");
+        }
+    }
     
 }
