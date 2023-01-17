@@ -8,10 +8,10 @@ public class Player {
     private String nom;
     private Color couleur;
 
-    public Player(String nom) {
+    public Player(String nom, Color color) {
         this.nom = nom;
 
-        this.couleur = Color.RED; // cst la couleur par default initial
+        this.couleur = color; // cst la couleur par default initial
     }
 
     public String getNom() { // pour prendre le nom du user
