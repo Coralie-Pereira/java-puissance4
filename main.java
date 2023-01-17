@@ -1,6 +1,10 @@
+import java.util.HexFormat;
 import java.util.Scanner;
 import java.awt.Color;
 import javax.swing.JColorChooser; // importer de java 
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
 import Classes.*;
 
 public class main {
@@ -13,7 +17,8 @@ public class main {
         Color couleurChoisie = JColorChooser.showDialog(null, "couleur pour les jetons ", joueur.getCouleur());  // choisir la couleur 
     
         joueur.setCouleur(couleurChoisie);
-        System.out.println(joueur.getCouleur() + "TEST");
+
+        System.out.println(colorToAnsiCode(joueur.getCouleur()) + "Message à afficher" + "\033[0m");
 
         
         Grid grid = new Grid();
@@ -32,6 +37,13 @@ public class main {
        }
        scan.close();
     
+    }
+
+    public static String colorToAnsiCode(Color color){
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        return String.format("\033[38;2;%d;%d;%dm", r, g, b);
     }
 
      
