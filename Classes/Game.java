@@ -6,6 +6,8 @@ import java.awt.Color;
 public class Game {
 
     public static Scanner scan = new Scanner(System.in);
+    public static final int ROWS = 6;
+    public static final int COLS = 7;
     
     public Player createPlayer(){
         System.out.println("Entrez le nom du joueur");
@@ -64,8 +66,23 @@ public class Game {
     public static int chooseColumn(){
         System.out.println("Veuillez choisir une colonne entre 0 et 6");
         int choice = scan.nextInt();
+        while(choice<=0 && choice>=COLS){
+            System.out.println("Veuillez entrer une colonne valide");
+            choice = scan.nextInt();
+        }
         return choice;
     }
+
+    public void checkVictory(Grid grid, Piece piece){
+        // Check horizontalement
+
+        Color color = grid.getGrid()[piece.getLine()][piece.getColumn()-1].getColor();
+        if(color == piece.getColor()){
+            System.out.println("a");
+        }
+    }
+
+    
 
     public void playMultiplayer(){
         Player player1 = createPlayer();
@@ -87,12 +104,17 @@ public class Game {
                 in_game = false;
             }
             int column = chooseColumn();
-            grid.addPiece(column, player1);
+            Piece piece = grid.addPiece(column, player1);
             grid.printGrid();
+            int alignied_pieces = grid.checkVertically(piece);
+            System.out.println(alignied_pieces);
 
             int column2 = chooseColumn();
-            grid.addPiece(column2, player2);
+            piece =  grid.addPiece(column2, player2);
             grid.printGrid();
+
+            alignied_pieces = grid.checkVertically(piece);
+            System.out.println(alignied_pieces);
 
         }
         

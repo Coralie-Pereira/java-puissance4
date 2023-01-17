@@ -5,9 +5,16 @@ public class Grid{
 
     private Piece[][] grid;
 
+    public Piece[][] getGrid() {
+        return grid;
+    }
+
+
+
     public static final int ROWS = 6;
     public static final int COLS = 7;
    
+
 
     public void createGrid(){
         
@@ -35,15 +42,13 @@ public class Grid{
         }
     }
 
-    public void addPiece(int column, Player player){
+    public Piece addPiece(int column, Player player){
         //args : color (String)
-        if(column>=0 && column<=COLS){
-        
-            for(int line = ROWS-1; line>=0; line--){
+
+            for( int line = ROWS-1; line>=0; line--){
                 if(this.grid[line][column].getColor()==null){
                     this.grid[line][column].setColor(player.getCouleur());
-
-                    return;
+                    return this.grid[line][column];
                 }
                 else{
                     if(line==0){
@@ -51,11 +56,13 @@ public class Grid{
                     }
                 }
             }
+            return new Piece(-1, -1);
+            
+            
+            
         }
-        else{
-            System.out.println("Mauvaise colonne");
-        }
-    }
+
+    
 
     public boolean isFull(){
         for (int line = 0; line < ROWS; line++) {
@@ -68,5 +75,19 @@ public class Grid{
         return true;
     }
     
+    public int checkVertically(Piece piece){
+        int y = piece.getLine();
+        int alignied_pieces = 1;
+        while(y<ROWS-1){
+            if(grid[y+1][piece.getColumn()].getColor() == piece.getColor()){
+                alignied_pieces++;
+                y++;
+            }
+            else{
+                break;
+            }
+        }
+        return alignied_pieces;
+    }
     
 }
