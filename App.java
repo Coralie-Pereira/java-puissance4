@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import Classes.Grid;
+
 public class App {
 
     public static void main(String[] args) throws Exception {
@@ -18,6 +20,7 @@ public class App {
                     break;
                 case "2":
                     Commandes.Versus();
+                    Grid.GenerateRandom();
                     break;
                     
                 case "3":
