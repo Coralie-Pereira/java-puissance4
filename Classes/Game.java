@@ -103,18 +103,23 @@ public class Game {
             if(grid.isFull()){
                 in_game = false;
             }
+            
             int column = chooseColumn();
             Piece piece = grid.addPiece(column, player1);
             grid.printGrid();
-            int alignied_pieces = grid.checkVertically(piece);
-            System.out.println(alignied_pieces);
+            if(grid.checkVictory(piece)){
+                System.out.println("end");
+                return;
+            }
 
             int column2 = chooseColumn();
             piece =  grid.addPiece(column2, player2);
             grid.printGrid();
 
-            alignied_pieces = grid.checkVertically(piece);
-            System.out.println(alignied_pieces);
+            if(grid.checkVictory(piece)){
+                System.out.println("end");
+                return;
+            }
 
         }
         

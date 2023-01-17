@@ -89,5 +89,132 @@ public class Grid{
         }
         return alignied_pieces;
     }
+
+    public int checkHorizontally(Piece piece){
+        //Verifier à gauche
+        int x = piece.getColumn();
+        int alignied_pieces = 1;
+        
+        while(x>0){
+            if(grid[piece.getLine()][x-1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x--;
+            }else{
+                break;
+            }
+        }
+        //Verifier à droite
+        x = piece.getColumn();
+
+        while(x<COLS-1){
+            if(grid[piece.getLine()][x+1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x++;
+            }else{
+                break;
+            }
+        }
+        return alignied_pieces;
+    }
+
+    public int checkFirstDiagonal(Piece piece){
+        int alignied_pieces = 1;
+
+        //Cas n°1 : diagonale gauche->droite, bas -> haut
+
+        //Verifier à gauche
+        int x = piece.getColumn();
+        int y = piece.getLine();
+
+        while(x>0 && y<ROWS-1){
+            if(grid[y+1][x-1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                y++;
+                x--;
+            }else{
+                break;
+            }
+        }
+
+        //Verifier à droite
+        x = piece.getColumn();
+        y = piece.getLine();
+
+        while(x<COLS-1 && y>0){
+            if(grid[y-1][x+1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                y--;
+                x++;
+            }
+            else{
+                break;
+            }
+        }
+        return alignied_pieces;
+
+    }
+
+    public int checkSecondDiagonal(Piece piece){
+        //Cas n°2 : diagonale gauche->droite, haut -> bas
+
+        int alignied_pieces = 1;
+        //Verifier à gauche
+
+        int x = piece.getColumn();
+        int y = piece.getLine();
+
+        while(x>0 && y>0){
+            if(grid[y-1][x-1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x--;
+                y--;
+            }else{
+                System.out.println();
+                break;
+            }
+        }
+         //Verifier à droite
+         x = piece.getColumn();
+         y = piece.getLine();
+
+         while(x<COLS-1 && y<ROWS-1){
+            if(grid[y+1][x+1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x++;
+                y++;
+            }else{
+                break;
+            }
+        }
+        return alignied_pieces;
+    }
+
+    public boolean checkVictory(Piece piece){
+
+
+        int alignied_pieces = checkVertically(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+        alignied_pieces = checkFirstDiagonal(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+        alignied_pieces = checkSecondDiagonal(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+        alignied_pieces = checkHorizontally(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+
+        return false;
+                
+            
+           
+
+    }
+
     
 }
