@@ -20,10 +20,11 @@ public class Grid{
         }
         this.grid = grid;
     }
-
     
 
     public void printGrid() {
+        System.out.print("0 1 2 3 4 5 6");
+        System.out.println();
         for (int line = 0; line < ROWS; line++) {
             for (int column = 0; column < COLS; column++) {
                 
