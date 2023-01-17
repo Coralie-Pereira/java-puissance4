@@ -25,4 +25,6 @@ public class Player {
     public void setCouleur(Color couleur) {
         this.couleur = couleur;
     }
+
+  
 }

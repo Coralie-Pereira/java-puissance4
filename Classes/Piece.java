@@ -1,9 +1,10 @@
 package Classes;
+import java.awt.Color;
 public class Piece {
   
     private int column;
     private int line;
-    private String color;
+    private Color color;
 
     public Piece(int column, int line){
         this.column = column;
@@ -26,26 +27,32 @@ public class Piece {
         this.line = line;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return this.color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
-    @Override
-    public String toString(){
-        
-        if(this.color ==null){
+    public String colorToAnsiCode(){
+        int r = this.color.getRed();
+        int g = this.color.getGreen();
+        int b = this.color.getBlue();
+        return String.format("\033[38;2;%d;%d;%dm", r, g, b);
+    }
+
+    public String printPiece(){
+        if(this.getColor()==null){
             return "_";
         }
-        
-        return "O";
-        
-    
-
+        else{
+            String ansi_code = this.colorToAnsiCode();
+            return ansi_code + "O" + "\033[0m";
+        }
     }
+
+  
 
 
 

@@ -13,12 +13,9 @@ public class main {
     public static void main(String[] args) {
 
         Player joueur = new Player("bob");
-
         Color couleurChoisie = JColorChooser.showDialog(null, "couleur pour les jetons ", joueur.getCouleur());  // choisir la couleur 
-    
         joueur.setCouleur(couleurChoisie);
 
-        System.out.println(colorToAnsiCode(joueur.getCouleur()) + "Message à afficher" + "\033[0m");
 
         
         Grid grid = new Grid();
@@ -32,19 +29,14 @@ public class main {
                 in_game = false;
             }
             int column = chooseColumn();
-            grid.addPiece(column);
+            grid.addPiece(column, joueur);
             grid.printGrid();
        }
        scan.close();
     
     }
 
-    public static String colorToAnsiCode(Color color){
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-        return String.format("\033[38;2;%d;%d;%dm", r, g, b);
-    }
+    
 
      
 

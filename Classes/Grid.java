@@ -28,20 +28,21 @@ public class Grid{
         for (int line = 0; line < ROWS; line++) {
             for (int column = 0; column < COLS; column++) {
                 
-                System.out.print(this.grid[line][column] + " ");
+                System.out.print(this.grid[line][column].printPiece() + " ");
             }
             // Passage à la ligne après chaque ligne de la grille
             System.out.println();
         }
     }
 
-    public void addPiece(int column){
+    public void addPiece(int column, Player player){
         //args : color (String)
         if(column>=0 && column<=COLS){
         
             for(int line = ROWS-1; line>=0; line--){
                 if(this.grid[line][column].getColor()==null){
-                    this.grid[line][column].setColor("red");
+                    this.grid[line][column].setColor(player.getCouleur());
+
                     return;
                 }
                 else{
