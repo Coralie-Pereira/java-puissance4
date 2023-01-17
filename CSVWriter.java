@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 
 public class CSVWriter {
-    private static final String COMMA_DELIMITER = ",";
-    private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String FILE_HEADER = "pseudo,leScore,scoMax";
+    private static final String VIRGULE_LIMITE = ",";
+    private static final String SEPARATEUR = "\n";
+    private static final String HEADER_FICHIER = "pseudo,leScore,scoMax";
 
     public static void writeCsvFile(String fileName, topscore sc) {
         FileWriter fileWriter = null;
@@ -20,16 +20,16 @@ public class CSVWriter {
             fileWriter = new FileWriter(fileName);
 
             // Write the CSV file header
-            fileWriter.append(FILE_HEADER.toString());
+            fileWriter.append(HEADER_FICHIER.toString());
 
             // Add a new line separator after the header
-            fileWriter.append(NEW_LINE_SEPARATOR);
+            fileWriter.append(HEADER_FICHIER);
             fileWriter.append(sc.getPseudo());
-            fileWriter.append(COMMA_DELIMITER);
+            fileWriter.append(VIRGULE_LIMITE);
             fileWriter.append(String.valueOf(sc.getLeScore()));
-            fileWriter.append(COMMA_DELIMITER);
+            fileWriter.append(VIRGULE_LIMITE);
             fileWriter.append(String.valueOf(sc.getScoMax()));
-            fileWriter.append(NEW_LINE_SEPARATOR);
+            fileWriter.append(SEPARATEUR);
 
             System.out.println("Le file CSV a bien été crée");
 
