@@ -109,6 +109,8 @@ public class Game {
             grid.printGrid();
             if(grid.checkVictory(piece)){
                 System.out.println("end");
+                //grid.highlightWinningPieces(piece);
+                grid.printGrid();
                 return;
             }
 
@@ -118,6 +120,8 @@ public class Game {
 
             if(grid.checkVictory(piece)){
                 System.out.println("end");
+                //grid.highlightWinningPieces(piece);
+                grid.printGrid();
                 return;
             }
 

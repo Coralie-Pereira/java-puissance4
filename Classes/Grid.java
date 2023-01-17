@@ -1,5 +1,6 @@
 package Classes;
 
+import java.awt.Color;
 
 public class Grid{
 
@@ -78,14 +79,9 @@ public class Grid{
     public int checkVertically(Piece piece){
         int y = piece.getLine();
         int alignied_pieces = 1;
-        while(y<ROWS-1){
-            if(grid[y+1][piece.getColumn()].getColor() == piece.getColor()){
-                alignied_pieces++;
-                y++;
-            }
-            else{
-                break;
-            }
+        while(y<ROWS-1 && grid[y+1][piece.getColumn()].getColor() == piece.getColor()){
+            alignied_pieces++;
+            y++;
         }
         return alignied_pieces;
     }
@@ -95,24 +91,16 @@ public class Grid{
         int x = piece.getColumn();
         int alignied_pieces = 1;
         
-        while(x>0){
-            if(grid[piece.getLine()][x-1].getColor() == piece.getColor()){
-                alignied_pieces++;
-                x--;
-            }else{
-                break;
-            }
+        while(x>0 && grid[piece.getLine()][x-1].getColor() == piece.getColor()){
+            alignied_pieces++;
+            x--;
         }
         //Verifier à droite
         x = piece.getColumn();
 
-        while(x<COLS-1){
-            if(grid[piece.getLine()][x+1].getColor() == piece.getColor()){
-                alignied_pieces++;
-                x++;
-            }else{
-                break;
-            }
+        while(x<COLS-1 && grid[piece.getLine()][x+1].getColor() == piece.getColor()){
+            alignied_pieces++;
+            x++;
         }
         return alignied_pieces;
     }
@@ -126,29 +114,20 @@ public class Grid{
         int x = piece.getColumn();
         int y = piece.getLine();
 
-        while(x>0 && y<ROWS-1){
-            if(grid[y+1][x-1].getColor() == piece.getColor()){
-                alignied_pieces++;
-                y++;
-                x--;
-            }else{
-                break;
-            }
+        while(x>0 && y<ROWS-1 && grid[y+1][x-1].getColor() == piece.getColor()){
+            alignied_pieces++;
+            y++;
+            x--;
         }
-
         //Verifier à droite
         x = piece.getColumn();
         y = piece.getLine();
 
-        while(x<COLS-1 && y>0){
-            if(grid[y-1][x+1].getColor() == piece.getColor()){
-                alignied_pieces++;
-                y--;
-                x++;
-            }
-            else{
-                break;
-            }
+        while(x<COLS-1 && y>0 && grid[y-1][x+1].getColor() == piece.getColor()){
+
+            alignied_pieces++;
+            y--;
+            x++;
         }
         return alignied_pieces;
 
@@ -163,28 +142,21 @@ public class Grid{
         int x = piece.getColumn();
         int y = piece.getLine();
 
-        while(x>0 && y>0){
-            if(grid[y-1][x-1].getColor() == piece.getColor()){
-                alignied_pieces++;
-                x--;
-                y--;
-            }else{
-                System.out.println();
-                break;
-            }
+        while(x>0 && y>0 && grid[y-1][x-1].getColor() == piece.getColor()){
+
+            alignied_pieces++;
+            x--;
+            y--;
         }
          //Verifier à droite
          x = piece.getColumn();
          y = piece.getLine();
 
-         while(x<COLS-1 && y<ROWS-1){
-            if(grid[y+1][x+1].getColor() == piece.getColor()){
-                alignied_pieces++;
-                x++;
-                y++;
-            }else{
-                break;
-            }
+         while(x<COLS-1 && y<ROWS-1 && grid[y+1][x+1].getColor() == piece.getColor()){
+            
+            alignied_pieces++;
+            x++;
+            y++;
         }
         return alignied_pieces;
     }
@@ -211,10 +183,72 @@ public class Grid{
 
         return false;
                 
-            
-           
-
     }
+    public void highlightWinningPieces(Piece[] pieces){
+        for (Piece piece : pieces) {
+            piece.setColor(Color.ORANGE);
+        }
+    }
+
+   /*  public void highlightWinningPieces(Piece piece) {
+        int alignied_pieces = checkVertically(piece);
+        if(alignied_pieces>=4){
+            int y = piece.getLine();
+            while(y<ROWS-1 && grid[y+1][piece.getColumn()].getColor() == piece.getColor()){
+                grid[y+1][piece.getColumn()].setColor(Color.ORANGE);
+                y++;
+            }
+        }
+        alignied_pieces = checkFirstDiagonal(piece);
+        if(alignied_pieces>=4){
+             int x = piece.getColumn();
+            int y = piece.getLine();
+            while(x>0 && y<ROWS-1 && grid[y+1][x-1].getColor() == piece.getColor()){
+                grid[y+1][x-1].setColor(Color.ORANGE);
+                x--;
+                y++;
+            }
+            x = piece.getColumn();
+            y = piece.getLine();
+            while(x<COLS-1 && y>0 && grid[y-1][x+1].getColor() == piece.getColor()){
+                grid[y-1][x+1].setColor(Color.ORANGE);
+                x++;
+                y--;
+            }
+        }
+        alignied_pieces = checkSecondDiagonal(piece);
+        if(alignied_pieces>=4){
+            int x = piece.getColumn();
+            int y = piece.getLine();
+            while(x>0 && y>0 && grid[y-1][x-1].getColor() == piece.getColor()){
+                grid[y-1][x-1].setColor(Color.ORANGE);
+                x--;
+                y--;
+            }
+            x = piece.getColumn();
+            y = piece.getLine();
+            while(x<COLS-1 && y<ROWS-1 && grid[y+1][x+1].getColor() == piece.getColor()){
+                grid[y+1][x+1].setColor(Color.ORANGE);
+                x++;
+                y++;
+            }
+        }
+        alignied_pieces = checkHorizontally(piece);
+        if(alignied_pieces>=4){
+             int x = piece.getColumn();
+            while(x>0 && grid[piece.getLine()][x-1].getColor() == piece.getColor()){
+                grid[piece.getLine()][x-1].setColor(Color.ORANGE);
+                x--;
+            }
+            x = piece.getColumn();
+            while(x<COLS-1 && grid[piece.getLine()][x+1].getColor() == piece.getColor()){
+                grid[piece.getLine()][x+1].setColor(Color.ORANGE);
+                x++;
+            }
+        }
+    
+    }*/
+    
 
     
 }
