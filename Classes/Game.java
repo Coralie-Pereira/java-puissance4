@@ -66,7 +66,7 @@ public class Game {
     public static int chooseColumn(){
         System.out.println("Veuillez choisir une colonne entre 0 et 6");
         int choice = scan.nextInt();
-        while(choice<=0 && choice>=COLS){
+        while(choice<0 || choice>=COLS){
             System.out.println("Veuillez entrer une colonne valide");
             choice = scan.nextInt();
         }
