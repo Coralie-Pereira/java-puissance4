@@ -1,13 +1,18 @@
 package Classes;
-
-
 public class Grid{
 
     private Piece[][] grid;
 
+    public Piece[][] getGrid() {
+        return grid;
+    }
+
+
+
     public static final int ROWS = 6;
     public static final int COLS = 7;
    
+
 
     public void createGrid(){
         
@@ -28,21 +33,20 @@ public class Grid{
         for (int line = 0; line < ROWS; line++) {
             for (int column = 0; column < COLS; column++) {
                 
-                System.out.print(this.grid[line][column] + " ");
+                System.out.print(this.grid[line][column].printPiece() + " ");
             }
             // Passage à la ligne après chaque ligne de la grille
             System.out.println();
         }
     }
 
-    public void addPiece(int column){
+    public Piece addPiece(int column, Player player){
         //args : color (String)
-        if(column>=0 && column<=COLS){
-        
-            for(int line = ROWS-1; line>=0; line--){
+
+            for( int line = ROWS-1; line>=0; line--){
                 if(this.grid[line][column].getColor()==null){
-                    this.grid[line][column].setColor("red");
-                    return;
+                    this.grid[line][column].setColor(player.getCouleur());
+                    return this.grid[line][column];
                 }
                 else{
                     if(line==0){
@@ -50,11 +54,13 @@ public class Grid{
                     }
                 }
             }
+            return new Piece(-1, -1);
+            
+            
+            
         }
-        else{
-            System.out.println("Mauvaise colonne");
-        }
-    }
+
+    
 
     public boolean isFull(){
         for (int line = 0; line < ROWS; line++) {
@@ -66,13 +72,157 @@ public class Grid{
         }
         return true;
     }
+    
+    public int checkVertically(Piece piece){
+        int y = piece.getLine();
+        int alignied_pieces = 1;
+        while(y<ROWS-1){
+            if(grid[y+1][piece.getColumn()].getColor() == piece.getColor()){
+                alignied_pieces++;
+                y++;
+            }
+            else{
+                break;
+            }
+        }
+        return alignied_pieces;
+    }
+
+    public int checkHorizontally(Piece piece){
+        //Verifier à gauche
+        int x = piece.getColumn();
+        int alignied_pieces = 1;
+        
+        while(x>0){
+            if(grid[piece.getLine()][x-1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x--;
+            }else{
+                break;
+            }
+        }
+        //Verifier à droite
+        x = piece.getColumn();
+
+        while(x<COLS-1){
+            if(grid[piece.getLine()][x+1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x++;
+            }else{
+                break;
+            }
+        }
+        return alignied_pieces;
+    }
+
+    public int checkFirstDiagonal(Piece piece){
+        int alignied_pieces = 1;
+
+        //Cas n°1 : diagonale gauche->droite, bas -> haut
+
+        //Verifier à gauche
+        int x = piece.getColumn();
+        int y = piece.getLine();
+
+        while(x>0 && y<ROWS-1){
+            if(grid[y+1][x-1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                y++;
+                x--;
+            }else{
+                break;
+            }
+        }
+
+        //Verifier à droite
+        x = piece.getColumn();
+        y = piece.getLine();
+
+        while(x<COLS-1 && y>0){
+            if(grid[y-1][x+1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                y--;
+                x++;
+            }
+            else{
+                break;
+            }
+        }
+        return alignied_pieces;
+
+    }
+
+    public int checkSecondDiagonal(Piece piece){
+        //Cas n°2 : diagonale gauche->droite, haut -> bas
+
+        int alignied_pieces = 1;
+        //Verifier à gauche
+
+        int x = piece.getColumn();
+        int y = piece.getLine();
+
+        while(x>0 && y>0){
+            if(grid[y-1][x-1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x--;
+                y--;
+            }else{
+                System.out.println();
+                break;
+            }
+        }
+         //Verifier à droite
+         x = piece.getColumn();
+         y = piece.getLine();
+
+         while(x<COLS-1 && y<ROWS-1){
+            if(grid[y+1][x+1].getColor() == piece.getColor()){
+                alignied_pieces++;
+                x++;
+                y++;
+            }else{
+                break;
+            }
+        }
+        return alignied_pieces;
+    }
+
+    public boolean checkVictory(Piece piece){
+
+
+        int alignied_pieces = checkVertically(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+        alignied_pieces = checkFirstDiagonal(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+        alignied_pieces = checkSecondDiagonal(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+        alignied_pieces = checkHorizontally(piece);
+        if(alignied_pieces>=4){
+            return true;
+        }
+
+        return false;
+                
+            
+           
+
+    }
+
+    
+
      
     public static void GenerateRandom() {
-          int min = 0; // Minimum value of range
-          int max = 6; // Maximum value of range
-          // Generate random int value from min to max
+          int min = 0;
+          int max = 6;
+
           int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
-          // Printing the generated random numbers
           System.out.println(random_int);
         }
+
     }

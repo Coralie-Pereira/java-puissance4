@@ -1,6 +1,8 @@
+package Classes;
 
 import java.io.IOException;
 import java.text.ParseException;
+
 
 
 
@@ -32,8 +34,12 @@ public class Commandes {
     }
 
     public static void Versus() throws ParseException, IOException {
+        Game game = new Game();
+        game.playMultiplayer();
+       
+            
+        }
 
-    }
     public static void TopScore() throws ParseException, IOException {
 
     }

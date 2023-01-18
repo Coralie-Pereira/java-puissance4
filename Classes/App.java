@@ -1,6 +1,5 @@
+package Classes;
 import java.util.Scanner;
-
-import Classes.Grid;
 
 public class App {
 
@@ -16,11 +15,14 @@ public class App {
             switch (choix) {
                 case "1":
                     System.out.println("test");
+                    Grid.GenerateRandom();
                     Commandes.JouerSeul();
+                    
+                    
                     break;
                 case "2":
                     Commandes.Versus();
-                    Grid.GenerateRandom();
+                    
                     break;
                     
                 case "3":
