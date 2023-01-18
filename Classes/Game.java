@@ -171,7 +171,7 @@ public class Game {
                         }
                     }
                 }
-
+                //Droite
                 if(right_column-1<COLS-1){ //Si on est pas dans la colonne tout à droite
                     int line = combination.getPieces().get(0).getLine();
                     if(grid.getGrid()[line][right_column].getColor() ==null){//Si colonne+1 de la pièce à droite est vide
@@ -194,6 +194,27 @@ public class Game {
 
                 
             }
+        }
+        if(combination.getType()=="first-diagonal"){
+           
+
+        }
+        if(combination.getType()=="second-diagonal"){
+             /*
+             * Gauche :
+             * Pion à gauche ne soit pas tout à gauche
+             * Pion à gauche ne soit pas tout en haut
+             * 
+             * Case c-1 l-1 vide
+             * Case c-1 l pleine
+             * 
+             * Droite
+             * Pion à droite ne soit pas tout à droite
+             * Pion à droite ne soit pas tout en bas
+             * 
+             * Case c+1 l+1 vide
+             * Case c+1 l pleine
+             */
         }
 
 

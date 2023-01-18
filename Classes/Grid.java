@@ -186,6 +186,36 @@ public class Grid{
 
     }
 
+    public Combination checkFirstDiagonal2(Piece piece){
+        ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
+        alignied_pieces.add(piece);
+
+        //Cas n°1 : diagonale gauche->droite, bas -> haut
+
+        //Verifier à gauche
+        int x = piece.getColumn();
+        int y = piece.getLine();
+
+        while(x>0 && y<ROWS-1 && grid[y+1][x-1].getColor() == piece.getColor()){
+            alignied_pieces.add(grid[y+1][x-1]);
+            y++;
+            x--;
+        }
+        //Verifier à droite
+        x = piece.getColumn();
+        y = piece.getLine();
+
+        while(x<COLS-1 && y>0 && grid[y-1][x+1].getColor() == piece.getColor()){
+
+            alignied_pieces.add(grid[y-1][x+1]);
+            y--;
+            x++;
+        }
+        Combination combination = new Combination("second-diagonal", alignied_pieces);
+        return combination;
+
+    }
+
     public List<Piece> checkSecondDiagonal(Piece piece){
         //Cas n°2 : diagonale gauche->droite, haut -> bas
 
@@ -213,6 +243,34 @@ public class Grid{
             y++;
         }
         return alignied_pieces;
+    }
+
+    public Combination checkSecondDiagonal2(Piece piece){
+
+        int x = piece.getColumn();
+        int y = piece.getLine();
+        ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
+        alignied_pieces.add(piece);
+
+        while(x>0 && y>0 && grid[y-1][x-1].getColor() == piece.getColor()){
+
+            alignied_pieces.add(grid[y-1][x-1]);
+            x--;
+            y--;
+        }
+         //Verifier à droite
+         x = piece.getColumn();
+         y = piece.getLine();
+
+         while(x<COLS-1 && y<ROWS-1 && grid[y+1][x+1].getColor() == piece.getColor()){
+            
+            alignied_pieces.add(grid[y+1][x+1]);
+            x++;
+            y++;
+        }
+        Combination combination = new Combination("second-diagonal", alignied_pieces);
+        return combination;
+
     }
 
     public boolean checkVictory(Piece piece){
