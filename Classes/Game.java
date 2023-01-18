@@ -1,6 +1,9 @@
 package Classes;
 import java.util.Scanner;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +13,18 @@ public class Game {
     public static Scanner scan = new Scanner(System.in);
     public static final int ROWS = 6;
     public static final int COLS = 7;
+
+    public static ArrayList<Combination> list_combinations = new ArrayList<>();
+
+   public void sortBySize() {
+        
+        Collections.sort(list_combinations, new Comparator<Combination>() {
+        @Override
+        public int compare(Combination c1, Combination c2) {
+            return c1.getPieces().size() - c2.getPieces().size();
+        }
+    });
+    }
     
     public Player createPlayer(){
         System.out.println("Entrez le nom du joueur");
@@ -91,6 +106,28 @@ public class Game {
         return max;
     }
 
+    public int getLineMin(List<Piece> pieces){
+        int min = pieces.get(0).getLine();
+        for (Piece piece : pieces) {
+            if(piece.getLine()<min){
+                min = piece.getLine();
+            }
+        }
+        return min;
+    }
+
+    public int getLineMax(List<Piece> pieces){
+        int max = pieces.get(0).getLine();
+        for (Piece piece : pieces) {
+            if(piece.getLine()>max){
+                max = piece.getLine();
+            }
+        }
+        return max;
+    }
+
+    
+
     
     public void chooseIALevel(){
         //int ia_level =
@@ -101,81 +138,92 @@ public class Game {
         return random_number;
     }
 
-    public int IAChooseColumnLvl2(Grid grid,Piece piece){
-        //Verticalement
-        List<Piece> alignied_pieces = grid.checkVertically(piece);
-        if(alignied_pieces.size()>2 && piece.getLine()<ROWS-1){
-            return piece.getColumn();
+    public int getValidMove(Combination combination, Grid grid){
+        if(combination.getType()=="vertical" ){
+            if(combination.getPieces().size()>2 &&combination.getPieces().get(combination.getPieces().size()-1).getColumn() <ROWS-1){
+                list_combinations.remove(combination);
+                return combination.getPieces().get(0).getColumn();
+            }
         }
-        //Horizontalement
-        alignied_pieces = grid.checkHorizontally(piece);
-        int left_column = getColumnMin(alignied_pieces)-1;
-        int right_column = getColumnMax(alignied_pieces)+1;
-        System.out.println("Left column : " + left_column);
-        System.out.println("Right column : " + right_column);
+        if(combination.getType()=="horizontal"){
+            if(combination.getPieces().size()>2){
+                int left_column = getColumnMin(combination.getPieces())-1;
+                int right_column = getColumnMax(combination.getPieces())+1;
 
+   
 
-        if(alignied_pieces.size()>2){
-
-            /*Gauche : 
-             * Colonne piece à gauche!=0
-             * Colonne-1 piece à gauche est vide
-             * Si ligne!=ROWS-1:
-             *      Colonne -1 ligne+1 piece à gauche est pleine
-             * 
-             * 
-             * Droite : 
-             * Colonne piece à droite!= COLS-1
-             * Colonne+1 piece à droite est vide
-             * 
-             * Si ligne!=ROWS-1:
-             *      Colonne +1 ligne+1 piece à droite est pleine
-             */
-
-            //regarder à gauche
-
-            //GAUCHE
-            if(left_column>=0){ // Si on est pas dans la colonne tout a gauche
-                System.out.println("gauche A");
-                if(grid.getGrid()[piece.getLine()][left_column].getColor()==null){ //Si colonne-1 de la pièce à gauche est vide
-                    System.out.println("gauche B");
-                    if(piece.getLine()!=ROWS-1){//Si on est pas dans la ligne du bas
-                        System.out.println("gauche C1");
-                        if(grid.getGrid()[piece.getLine()+1][left_column].getColor()!=null){ // On vérifie que la case colonne à gauche de la piece + ligne-1 est une case pleine
-                            System.out.println("gauche D");
+                //Gauche
+                if(left_column>=0){//Si on est pas dans la colonne tout a gauche
+                    int line = combination.getPieces().get(0).getLine();
+                    if(grid.getGrid()[line][left_column].getColor() ==null){//Si colonne-1 de la pièce à gauche est vide
+                        if(line!=ROWS-1){//Si on est pas dans la ligne du bas
+                            if(grid.getGrid()[line+1][left_column].getColor()!=null){// On vérifie que la case colonne à gauche de la piece + ligne+1 est une case pleine
+                                if(grid.getGrid()[line][right_column].getColor()!=null){
+                                    list_combinations.remove(combination);
+                                }
+                                return left_column;
+                            }
+                        }else{
+                            if(grid.getGrid()[line][right_column].getColor()!=null){
+                                list_combinations.remove(combination);
+                            }
                             return left_column;
                         }
                     }
-                    else{
-                        System.out.println("gauche C2");
-                        return left_column;
-                    }
                 }
-            }
 
-            //DROITE
-            if(right_column-1<COLS-1){ //Si on est pas dans la colonne tout à droite
-                System.out.println("Droite A");
-                if(grid.getGrid()[piece.getLine()][right_column].getColor()==null){ //Si colonne+1 de la pièce à droite est vide
-                    System.out.println("Droite B");
-                    if(piece.getLine()!=ROWS-1){ //Si on est pas dans la ligne du bas
-                        System.out.println("Droite C1");
-                        if(grid.getGrid()[piece.getLine()+1][right_column].getColor()!=null){ // On vérifie que la case colonne à droite de la piece + ligne-1 est une case pleine
-                            System.out.println("Droite D");
+                if(right_column-1<COLS-1){ //Si on est pas dans la colonne tout à droite
+                    int line = combination.getPieces().get(0).getLine();
+                    if(grid.getGrid()[line][right_column].getColor() ==null){//Si colonne+1 de la pièce à droite est vide
+                        if(line!=ROWS-1){//Si on est pas dans la ligne du bas
+                            if(grid.getGrid()[line+1][right_column].getColor()!=null){ // On vérifie que la case colonne à droite de la piece + ligne+1 est une case pleine
+                                if(grid.getGrid()[line][left_column].getColor()!=null){
+                                    list_combinations.remove(combination);
+                                }
+                                return right_column;
+                            }
+                        }else{
+                            if(grid.getGrid()[line][left_column].getColor()!=null){
+                                list_combinations.remove(combination);
+                            }
                             return right_column;
                         }
                     }
-                    else{
-                        System.out.println("Droite C2");
-                        return right_column;
-                    }
                 }
-            }   
 
-           
+
+                
+            }
         }
+
+
         return IAChooseColumnLvl1();
     }
+   
+
+    public int IAChooseColumnLvl2(Grid grid,Piece piece){
+        //Verticalement
+
+        Combination combination = grid.checkVertically2(piece);
+        if(combination.getPieces().size()>2){
+            list_combinations.add(combination);
+        }
+
+        //Horizontalement
+        combination = grid.checkHorizontally2(piece);
+        if(combination.getPieces().size()>2){
+            list_combinations.add(combination); 
+        }
+
+        System.out.println(list_combinations);
+        sortBySize();
+        if(!list_combinations.isEmpty()){
+            combination = list_combinations.get(0);
+        }
+        return getValidMove(combination,grid);
+       
+    }
+    
 
     public void playSingleplayer(){
         Player player = createPlayer();

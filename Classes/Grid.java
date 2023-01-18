@@ -100,6 +100,43 @@ public class Grid{
         return alignied_pieces;
     }
 
+    public Combination checkVertically2(Piece piece){
+        int y = piece.getLine();
+        ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
+        alignied_pieces.add(piece);
+
+        while(y<ROWS-1 && grid[y+1][piece.getColumn()].getColor() == piece.getColor()){
+            alignied_pieces.add(grid[y+1][piece.getColumn()]);
+            y++;
+        }
+        
+        Combination combination = new Combination("vertical", alignied_pieces);
+        return combination;
+
+    }
+
+    public Combination checkHorizontally2(Piece piece){
+        int x = piece.getColumn();
+        ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
+
+        alignied_pieces.add(piece);
+        
+        while(x>0 && grid[piece.getLine()][x-1].getColor() == piece.getColor()){
+            alignied_pieces.add(grid[piece.getLine()][x-1]);
+            x--;
+        }
+        //Verifier à droite
+        x = piece.getColumn();
+
+        while(x<COLS-1 && grid[piece.getLine()][x+1].getColor() == piece.getColor()){
+            alignied_pieces.add(grid[piece.getLine()][x+1]);
+            x++;
+        }
+
+        Combination combination = new Combination("horizontal", alignied_pieces);
+        return combination;
+    }
+
     public List<Piece> checkHorizontally(Piece piece){
         //Verifier à gauche
         int x = piece.getColumn();
