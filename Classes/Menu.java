@@ -52,6 +52,8 @@ public class Menu {
     }
 
     public static void JouerSeul(){
+        Game game = new Game();
+        game.playSingleplayer();
     }
 
     public  static void Versus(){

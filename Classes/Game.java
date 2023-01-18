@@ -15,10 +15,6 @@ public class Game {
         String name = scan.nextLine();
         Color color = chooseColor();
         Player player = new Player(name, color);
-        
-       // Color color = JColorChooser.showDialog(null, "couleur pour les jetons ", player.getCouleur());  // choisir la couleur 
-        //player.setCouleur(color);
-
         return player;
 
     }
@@ -30,7 +26,7 @@ public class Game {
         System.out.println("3 - Bleu");
         System.out.println("4 - Vert");
         System.out.println("5 - Rose");
-        System.out.println("6 - Blanc");
+        System.out.println("6 - Gris");
 
     }
 
@@ -55,7 +51,7 @@ public class Game {
                     return Color.PINK;
 
                 case "6":
-                    return Color.WHITE;
+                    return Color.GRAY;
                 default:
                     System.out.println("Veuillez entrer une nouvelle couleur");
                     break;
@@ -80,13 +76,42 @@ public class Game {
     }
 
     public int IAChooseColumn(){
-        int random_int = (int)Math.floor(Math.random() * ((COLS-1) + 1));
-        //int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
-        return random_int;
+        int random_number = new Random().nextInt(7);
+        return random_number;
     }
 
     public void playSingleplayer(){
+        Player player = createPlayer();
+        Player IA = new Player("IA", Color.WHITE);
 
+        Grid grid = new Grid();
+        grid.createGrid();
+        grid.printGrid();
+
+        while(true){
+            if(grid.isFull()){
+               return;
+            }
+            
+            int column = chooseColumn();
+            Piece piece = grid.addPiece(column, player);
+            grid.printGrid();
+            if(grid.checkVictory(piece)){
+                grid.printGrid();
+                System.out.println("Vous avez gagné la partie bravo ! ");
+                Menu.showMenu();
+                return;
+            }
+            piece = grid.addPiece(IAChooseColumn(), IA);
+            grid.printGrid();
+
+            if(grid.checkVictory(piece)){
+                grid.printGrid();
+                System.out.println("L'IA a gagné ! ");
+                Menu.showMenu();
+                return;
+            }
+        }
     }
 
 
@@ -115,7 +140,7 @@ public class Game {
             grid.printGrid();
             if(grid.checkVictory(piece)){
                 grid.printGrid();
-                System.out.println("Vous avez gagné la partie bravo ! ");
+                System.out.println("Joueur 1 a gagné la partie bravo ! ");
                 Menu.showMenu();
                 return;
             }
@@ -126,7 +151,7 @@ public class Game {
 
             if(grid.checkVictory(piece)){
                 grid.printGrid();
-                System.out.println("Vous avez gagné la partie bravo ! ");  
+                System.out.println("Joueur 2 a gagné la partie bravo ! ");  
                 Menu.showMenu();
                 return;
             }
