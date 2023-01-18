@@ -64,6 +64,16 @@ public class Grid{
             
             
         }
+    
+    public int getLastPieceLine(int column){
+        int last_line = ROWS-1;
+        for(int line = ROWS-1; line>0; line--){
+            if(this.grid[line-1][column].getColor() !=null){
+                last_line = line-1;
+            }
+        }
+        return last_line;
+    }
 
     
 
