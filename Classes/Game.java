@@ -1,6 +1,7 @@
 package Classes;
 import java.util.Scanner;
 import java.awt.Color;
+import java.util.Random;
 
 
 public class Game {
@@ -73,16 +74,21 @@ public class Game {
         return choice;
     }
 
-    public void checkVictory(Grid grid, Piece piece){
-        // Check horizontalement
-
-        Color color = grid.getGrid()[piece.getLine()][piece.getColumn()-1].getColor();
-        if(color == piece.getColor()){
-            System.out.println("a");
-        }
+    
+    public void chooseIALevel(){
+        //int ia_level =
     }
 
-    
+    public int IAChooseColumn(){
+        int random_int = (int)Math.floor(Math.random() * ((COLS-1) + 1));
+        //int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        return random_int;
+    }
+
+    public void playSingleplayer(){
+
+    }
+
 
     public void playMultiplayer(){
         Player player1 = createPlayer();
@@ -108,9 +114,9 @@ public class Game {
             Piece piece = grid.addPiece(column, player1);
             grid.printGrid();
             if(grid.checkVictory(piece)){
-                System.out.println("end");
-                //grid.highlightWinningPieces(piece);
                 grid.printGrid();
+                System.out.println("Vous avez gagné la partie bravo ! ");
+                Menu.showMenu();
                 return;
             }
 
@@ -119,13 +125,14 @@ public class Game {
             grid.printGrid();
 
             if(grid.checkVictory(piece)){
-                System.out.println("end");
-                //grid.highlightWinningPieces(piece);
                 grid.printGrid();
+                System.out.println("Vous avez gagné la partie bravo ! ");  
+                Menu.showMenu();
                 return;
             }
 
         }
+        ;
         
     }
 }

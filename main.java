@@ -1,13 +1,11 @@
-import Classes.Game;
+import Classes.Menu;
+
 
 
 
 public class Main {
-
-    public static void main(String[] args) {
-
-        Game game = new Game();
-        game.playMultiplayer();
-       
+    public static void main(String[] args){
+        Menu.showMenu();
     }
+
 }

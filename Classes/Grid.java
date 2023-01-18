@@ -197,7 +197,7 @@ public class Grid{
     }
     public void highlightWinningPieces(List<Piece> pieces){
         for (Piece piece : pieces) {
-            piece.setColor(Color.ORANGE);
+            piece.setColor(Color.CYAN);
         }
     }
 
