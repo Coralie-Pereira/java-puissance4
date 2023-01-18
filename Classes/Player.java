@@ -7,6 +7,15 @@ public class Player {
   
     private String nom;
     private Color couleur;
+    private int ia_level;
+
+    public int getIa_level() {
+        return ia_level;
+    }
+
+    public void setIa_level(int ia_level) {
+        this.ia_level = ia_level;
+    }
 
     public Player(String nom, Color color) {
         this.nom = nom;

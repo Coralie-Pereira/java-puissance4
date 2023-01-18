@@ -140,7 +140,7 @@ public class Game {
             grid.printGrid();
             if(grid.checkVictory(piece)){
                 grid.printGrid();
-                System.out.println("Joueur 1 a gagné la partie bravo ! ");
+                System.out.println(player1.getNom() +" a gagné la partie bravo ! ");
                 Menu.showMenu();
                 return;
             }
@@ -151,7 +151,7 @@ public class Game {
 
             if(grid.checkVictory(piece)){
                 grid.printGrid();
-                System.out.println("Joueur 2 a gagné la partie bravo ! ");  
+                System.out.println(player2.getNom() +" a gagné la partie bravo ! ");
                 Menu.showMenu();
                 return;
             }
