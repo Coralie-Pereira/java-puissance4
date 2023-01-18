@@ -172,28 +172,7 @@ public class Game {
                 }
             }   
 
-            /*if(piece.getLine()==ROWS-1 && grid.getGrid()[piece.getLine()][left_column].getColor()==null && grid.getGrid()[piece.getLine()][left_column].getColumn()>0){
-                System.out.println("gauche : a");
-                return left_column;
-                
-            }
-            else if(grid.getGrid()[piece.getLine()+1][left_column].getColor()!=null && grid.getGrid()[piece.getLine()][left_column].getColor()==null && grid.getGrid()[piece.getLine()][left_column].getColumn()>0){
-                System.out.println("gauche : b");
-                return left_column;
-            }
-
-            //regarder à droite
-
-
-            if(piece.getLine()==ROWS-1 && grid.getGrid()[piece.getLine()][right_column].getColor()==null && grid.getGrid()[piece.getLine()][left_column].getColumn()<COLS-1){
-                System.out.println("droite : a");
-                return right_column;
-                
-            }
-            else if(grid.getGrid()[piece.getLine()+1][right_column].getColor()!=null && grid.getGrid()[piece.getLine()][right_column].getColor()==null && grid.getGrid()[piece.getLine()][left_column].getColumn()<COLS-1){
-                System.out.println("droite : b");
-                return right_column;
-            }*/
+           
         }
         return IAChooseColumnLvl1();
     }
