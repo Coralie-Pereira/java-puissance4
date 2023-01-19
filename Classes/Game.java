@@ -67,23 +67,62 @@ public class Game {
     public static int chooseColumn(){
         System.out.println("Veuillez choisir une colonne entre 0 et 6");
         int choice = scan.nextInt();
-        while(choice<=0 && choice>=COLS){
+        while(choice<0 || choice>=COLS){
             System.out.println("Veuillez entrer une colonne valide");
             choice = scan.nextInt();
         }
         return choice;
     }
 
-    public void checkVictory(Grid grid, Piece piece){
-        // Check horizontalement
+    public void menuIALEVEL(){
+        Scanner sc = new Scanner(System.in);
 
-        Color color = grid.getGrid()[piece.getLine()][piece.getColumn()-1].getColor();
-        if(color == piece.getColor()){
-            System.out.println("a");
-        }
+        chooseIALevel();
+
+        while (true) {
+            String choix = sc.nextLine();
+            switch (choix) {
+                case "1":
+                System.out.println("niveau facile");
+
+                break;
+
+                case "2":
+                System.out.println("niveau moyen");
+                break;
+
+                case "3":
+                System.out.println("niveau difficile");
+
+                break;
+
+                case "4":
+                sc.close();
+                System.out.println("niveau expert");
+
+                break;
+                }
+            }
+}
+    public void chooseIALevel(){
+        System.out.println("Veuillez choisir une difficulté");
+        System.out.println("1 - facile");
+        System.out.println("2 - moyen");
+        System.out.println("3 - difficile");
+        System.out.println("4 - expert");
+
+        //int ia_level =
     }
 
-    
+    public int IAChooseColumn(){
+        int random_int = (int)Math.floor(Math.random() * ((COLS-1) + 1));
+        //int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        return random_int;
+    }
+
+    public void playSingleplayer(){
+
+    }
 
     public void playMultiplayer(){
         Player player1 = createPlayer();
@@ -109,8 +148,9 @@ public class Game {
             Piece piece = grid.addPiece(column, player1);
             grid.printGrid();
             if(grid.checkVictory(piece)){
-                System.out.println("end");
-                Commandes.AfficherMenu();
+                grid.printGrid();
+                System.out.println("Vous avez gagné la partie bravo ! ");
+                Menu.showMenu();
                 return;
             }
 
@@ -119,12 +159,14 @@ public class Game {
             grid.printGrid();
 
             if(grid.checkVictory(piece)){
-                System.out.println("end");
-                Commandes.AfficherMenu();
+                grid.printGrid();
+                System.out.println("Vous avez gagné la partie bravo ! ");  
+                Menu.showMenu();
                 return;
             }
 
         }
+        ;
         
     }
 }
