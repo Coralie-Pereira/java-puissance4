@@ -25,16 +25,30 @@ public class Game {
     public static ArrayList<Combination> list_combinations = new ArrayList<>();
 
    public void sortBySize() {
+        /*
+         * Sort combinations by size
+         * 
+         */
         
         Collections.sort(list_combinations, new Comparator<Combination>() {
         @Override
         public int compare(Combination c1, Combination c2) {
-            return c1.getPieces().size() - c2.getPieces().size();
+            /*
+             * Override compare function to sort Combination by size
+             * @param c1(Combination): combination 1 
+             * @param c2(Combination): combination 2
+             * @return (int): size combination1 - size combination2
+             */
+            return c2.getPieces().size() - c1.getPieces().size() ;
         }
     });
     }
     
     public Player createPlayer(){ 
+        /*
+         * Create a new player
+         * @return (Player): new player
+         */
         System.out.println("Entrez le nom du joueur");
 
         String name = scan.nextLine();
@@ -47,6 +61,9 @@ public class Game {
 
 
     public void showMenuColors(){
+        /*
+         * Print colors menu
+         */
         System.out.println("Veuillez choisir une couleur");
         System.out.println("1 - Rouge");
         System.out.println("2 - Jaune");
@@ -58,6 +75,10 @@ public class Game {
     }
 
     public Color chooseColor(){
+        /*
+         * Choose piece color
+         * @return (Color) Choosen color
+         */
         this.showMenuColors();
         while(true){
             String color = scan.nextLine();
@@ -88,6 +109,11 @@ public class Game {
     }
     
     public static int chooseColumn(Grid grid){
+        /*
+         * Choose next piece column
+         * @param grid (Grid): current grid
+         * @return (int): choosen column
+         */
         System.out.println("Veuillez choisir une colonne entre 0 et 6");
         int choice = scan.nextInt();
         while((choice<0 || choice>=COLS) || grid.getLastPieceLine(choice)==0){
@@ -98,6 +124,11 @@ public class Game {
     }
 
     public int getColumnMin(List<Piece> pieces){
+        /*
+         * Get column min of a list of piece
+         * @param pieces(List<Piece>) : list of pieces
+         * @return (int): min column of the pieces
+         */
         int min = pieces.get(0).getColumn();
         for (Piece piece : pieces) {
             if(piece.getColumn()<min){
@@ -108,6 +139,11 @@ public class Game {
     }
 
     public int getColumnMax(List<Piece> pieces){
+        /*
+         * Get column max of a list of piece
+         * @param pieces(List<Piece>) : list of pieces
+         * @return (int): max column of the pieces
+         */
         int max = pieces.get(0).getColumn();
         for (Piece piece : pieces) {
             if(piece.getColumn()>max){
@@ -118,6 +154,11 @@ public class Game {
     }
 
     public int getLineMin(List<Piece> pieces){
+        /*
+         * Get line min of a list of piece
+         * @param pieces(List<Piece>) : list of pieces
+         * @return (int): min lin of the pieces
+         */
         int min = pieces.get(0).getLine();
         for (Piece piece : pieces) {
             if(piece.getLine()<min){
@@ -128,6 +169,11 @@ public class Game {
     }
 
     public int getLineMax(List<Piece> pieces){
+        /*
+         * Get line max of a list of piece
+         * @param pieces(List<Piece>) : list of pieces
+         * @return (int): max lin of the pieces
+         */
         int max = pieces.get(0).getLine();
         for (Piece piece : pieces) {
             if(piece.getLine()>max){
@@ -138,6 +184,11 @@ public class Game {
     }
 
     public int IAChooseColumnLvl1(Grid grid){
+        /*
+         * Get column choosen by ia lvl1
+         * @param grid (Grid): current grid
+         * @return (int): column choosen by ia lvl1
+         */
         int random_number = new Random().nextInt(7);
         while(grid.getLastPieceLine(random_number)==0){
             System.out.println(grid.getLastPieceLine(random_number));
@@ -147,6 +198,11 @@ public class Game {
     }
 
     public int getValidMove(Grid grid){
+        /*
+         * Get ia move
+         * @param grid(Grid): current grid
+         * @return (int): column choosen by ia lvl2
+         */
 
         if(!list_combinations.isEmpty()){
             try{
@@ -372,6 +428,13 @@ public class Game {
    
 
     public int IAChooseColumnLvl2(Grid grid,Piece piece){
+        /*
+         * Add a combination in the list if combination size>2
+         * @param grid(Grid): current grid
+         * @param piece(Piece): piece to check
+         * @return (int): getValidMove(grid) -> column choosen by ia
+         */
+
         //Verticalement
 
         Combination combination = grid.checkVertically2(piece);
@@ -406,6 +469,9 @@ public class Game {
 
 static int niveau = 0;
     public void menuIALEVEL(){
+        /*
+         * Do the link between menu ia level and functions
+         */
         chooseIALevel();
         
         
@@ -435,18 +501,23 @@ static int niveau = 0;
                 }
             }
 }
+
     public void chooseIALevel(){
+        /*
+         * Print menu ia level
+         */
         System.out.println("Veuillez choisir une difficulté");
         System.out.println("1 - facile");
         System.out.println("2 - moyen");
         System.out.println("3 - difficile");
         System.out.println("4 - expert");
-
-        //int ia_level =
     }
     
-
     public void playSingleplayer(int ia_level){
+        /*
+         * Game function vs ia
+         * @param ia_level (int) ia level
+         */
         Player player = createPlayer();
         Player IA = new Player("IA", Color.WHITE, 0);
 
@@ -501,6 +572,9 @@ static int niveau = 0;
 
 
     public void playMultiplayer(){
+        /*
+         * Game function vs another player
+         */
         Player player1 = createPlayer();
         Player player2 = createPlayer();
 
@@ -559,6 +633,13 @@ static int niveau = 0;
     }
 
     public int Score(int niveau,int counttours){
+        /*
+         * Get player score vs ia
+         * @param niveau(int): ia level
+         * @param counttours(int): number of rounds
+         * @return (int): player score
+         */
+
         // on prepare le niveau + le compteur de points
         int level = niveau; // le niveau de difficulté choisi par le user 
         int points = 10000; // le compteur de point
@@ -595,6 +676,11 @@ static int niveau = 0;
         }
 
     public int ScoreVersus(int counttours){
+        /*
+         *Get player score vs another player
+         *@param (int): number of rounds
+         */
+
         // on prepare le niveau + le compteur de points
         int points = 10000; // le compteur de point
                 points -= 100 * counttours; 
@@ -604,6 +690,10 @@ static int niveau = 0;
     }
 
     public void saveScore(Player player){
+        /*
+         * Save score in csv file
+         * @param player (Player):current player
+         */
         try{
             File myObj = new File("scores.csv");
             if (myObj.createNewFile()) {
@@ -619,6 +709,10 @@ static int niveau = 0;
     }
 
     public static void printScores(){
+        /*
+         * Get scores of the csv file and print them in console
+         * 
+         */
         
         try{
             BufferedReader reader = new BufferedReader(new FileReader("scores.csv"));
