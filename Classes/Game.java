@@ -126,13 +126,6 @@ public class Game {
         return max;
     }
 
-    
-
-    
-    public void chooseIALevel(){
-        //int ia_level =
-    }
-
     public int IAChooseColumnLvl1(){
         int random_number = new Random().nextInt(7);
         return random_number;
@@ -346,6 +339,47 @@ public class Game {
         }
         return getValidMove(combination,grid);
        
+    }
+
+
+    public void menuIALEVEL(){
+        Scanner sc = new Scanner(System.in);
+
+        chooseIALevel();
+
+        while (true) {
+            String choix = sc.nextLine();
+            switch (choix) {
+                case "1":
+                System.out.println("niveau facile");
+
+                break;
+
+                case "2":
+                System.out.println("niveau moyen");
+                break;
+
+                case "3":
+                System.out.println("niveau difficile");
+
+                break;
+
+                case "4":
+                sc.close();
+                System.out.println("niveau expert");
+
+                break;
+                }
+            }
+}
+    public void chooseIALevel(){
+        System.out.println("Veuillez choisir une difficulté");
+        System.out.println("1 - facile");
+        System.out.println("2 - moyen");
+        System.out.println("3 - difficile");
+        System.out.println("4 - expert");
+
+        //int ia_level =
     }
     
 
