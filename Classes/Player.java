@@ -8,6 +8,7 @@ public class Player {
     private String nom;
     private Color couleur;
     private int ia_level;
+    private int score;
 
     public int getIa_level() {
         return ia_level;
@@ -17,10 +18,10 @@ public class Player {
         this.ia_level = ia_level;
     }
 
-    public Player(String nom, Color color) {
+    public Player(String nom, Color color,int score) {
         this.nom = nom;
-
         this.couleur = color; // cst la couleur par default initial
+        this.score = score;
     }
 
     public String getNom() { // pour prendre le nom du user
@@ -33,6 +34,13 @@ public class Player {
 
     public void setCouleur(Color couleur) {
         this.couleur = couleur;
+    }
+
+    public int getscore(){
+        return  score;
+    }
+    public void setscore(int score){
+        this.score = score;
     }
 
   

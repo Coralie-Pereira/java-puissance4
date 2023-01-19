@@ -130,7 +130,7 @@ public class Grid{
         alignied_pieces.add(piece);
         
         while(x>0 && grid[piece.getLine()][x-1].getColor() == piece.getColor()){
-            /*if(x>1 &&grid[piece.getLine()][x-1].getColor() ==null && grid[piece.getLine()][x-2].getColor()== piece.getColor()){
+           /* if(x>1 &&grid[piece.getLine()][x-1].getColor() ==null && grid[piece.getLine()][x-2].getColor()== piece.getColor()){
                 alignied_pieces.add(grid[piece.getLine()][x-2]);
             }*/
             alignied_pieces.add(grid[piece.getLine()][x-1]);

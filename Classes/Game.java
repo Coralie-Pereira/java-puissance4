@@ -14,6 +14,8 @@ public class Game {
     public static final int ROWS = 6;
     public static final int COLS = 7;
 
+    int counttours=0;
+
     public static ArrayList<Combination> list_combinations = new ArrayList<>();
 
    public void sortBySize() {
@@ -30,10 +32,11 @@ public class Game {
         System.out.println("Entrez le nom du joueur");
         String name = scan.nextLine();
         Color color = chooseColor();
-        Player player = new Player(name, color);
+        Player player = new Player(name, color,0);
         return player;
 
     }
+
 
     public void showMenuColors(){
         System.out.println("Veuillez choisir une couleur");
@@ -393,7 +396,7 @@ public class Game {
        
     }
 
-
+static int niveau = 0;
     public void menuIALEVEL(){
         Scanner sc = new Scanner(System.in);
 
@@ -403,14 +406,13 @@ public class Game {
             String choix = sc.nextLine();
             switch (choix) {
                 case "1":
-                System.out.println("niveau facile");
                 playSingleplayer(1);
-
+                System.out.println("niveau facile");
                 break;
 
                 case "2":
-                System.out.println("niveau moyen");
                 playSingleplayer(2);
+                System.out.println("niveau moyen");
                 break;
 
                 case "3":
@@ -439,10 +441,12 @@ public class Game {
 
     public void playSingleplayer(int ia_level){
         Player player = createPlayer();
-        Player IA = new Player("IA", Color.WHITE);
+        Player IA = new Player("IA", Color.WHITE, 0);
 
         Grid grid = new Grid();
         grid.createGrid();
+
+        niveau = ia_level;
 
         /*grid.addPiece(0, IA);
         grid.addPiece(0, IA);
@@ -514,11 +518,14 @@ public class Game {
             }
             //Tour du joueur
             int column = chooseColumn(grid);
+            counttours ++;
             Piece piece = grid.addPiece(column, player);
             grid.printGrid();
             if(grid.checkVictory(piece)){
+                int score = Score(niveau, counttours);
+                player.setscore(score);
                 grid.printGrid();
-                System.out.println(player.getNom()+" a gagné la partie bravo ! ");
+                System.out.println(player.getNom()+ " a gagné la partie bravo ! VOTRE SCORE EST DE " + player.getscore() );
                 list_combinations = new ArrayList<>();
                 Menu.showMenu();
                 return;
@@ -595,4 +602,41 @@ public class Game {
         ;
         
     }
+
+    public int Score(int niveau,int counttours){
+        // on prepare le niveau + le compteur de points
+        int level = niveau; // le niveau de difficulté choisi par le user 
+        int points = 10000; // le compteur de point
+
+        // on fait les conditions pour les points en fonction du level 
+        if (level == 1) {
+            //si on retire 10 points pour chaque coup joué en mode facile
+                points -= 10 * counttours; 
+                // ajoute 15 points pour chaque victoire en mode facile
+                points += 15;
+                return points;
+            
+            } else if (level == 2) {
+                // sinon on retire pas de points ni rajouter de points pour chaque coup joué en  moyen
+                points -= 5 * counttours;
+                // on ajoute 20 points pour chaque victoire en mode moyen
+                points += 20;
+                return points;
+
+            } else if (level == 3) {
+                // sinon on rajoute 3 points pour chaque coup joué en mode difficile
+                points -= 3 * counttours; 
+                // et on rajoute 40 points pour chaque victoire en mode difficile
+                points += 40;
+                return points;
+                
+            }else if (level == 4){
+                points -= 2 * counttours;
+                points += 60;
+                return points;
+
+            }
+            return points;
+        }
+
 }
