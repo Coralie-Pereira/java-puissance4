@@ -14,10 +14,7 @@ public class Menu {
 
             switch (choix) {
                 case "1":
-                    System.out.println("test");
-                    JouerSeul();
-                    
-                    
+                    JouerSeul();            
                     break;
                 case "2":
                     Versus();
