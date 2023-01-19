@@ -196,6 +196,53 @@ public class Game {
             }
         }
         if(combination.getType()=="first-diagonal"){
+
+            if(combination.getPieces().size()>2){
+                int left_column = getColumnMin(combination.getPieces())-1;
+                int right_column = getColumnMax(combination.getPieces())+1;
+                int up_line = getLineMin(combination.getPieces())-1;
+                int bottom_line = getLineMax(combination.getPieces())+1;
+
+                //Bas à gauche
+
+
+                if(left_column>=0 && bottom_line-1<ROWS-1){//Si on est pas dans la colonne tout à gauche ni dans la ligne tout à bas
+                    if(grid.getGrid()[bottom_line][left_column].getColor()==null){//On vérifie que case en bas à gauche est vide
+                        if(bottom_line<ROWS-1){
+                            if(grid.getGrid()[bottom_line+1][left_column].getColor()!=null){//On vérifie que la case de gauche est pleine
+                                return left_column;
+                            }
+                        }else{
+                            return left_column;
+                        }
+                        
+                    }
+                    if(grid.getGrid()[bottom_line][left_column].getColor()!=null){
+                        list_combinations.remove(combination);
+                    }
+                }
+
+                //Haut à droite
+                System.out.println("A");
+                if(right_column-1<COLS-1 && up_line>=0){ //Si on est pas dans la colonne tout a droite ni dans la ligne tout en  haut
+                    System.out.println("B");
+                    if(grid.getGrid()[up_line][right_column].getColor()==null){//On vérifie que case en haut à droite est vide
+                        System.out.println("C");
+                        
+                        if(grid.getGrid()[up_line+1][right_column].getColor()!=null){//On vérifie que la case de gauche est pleine
+                            System.out.println("D");
+                            return right_column;
+                        }
+                       
+                        
+                    }
+                    if(grid.getGrid()[up_line][right_column].getColor()!=null){
+                        list_combinations.remove(combination);
+                    }
+                }
+                
+
+            }
            
 
         }
@@ -279,6 +326,12 @@ public class Game {
             list_combinations.add(combination); 
         }
 
+        //First Diagonal
+        combination = grid.checkFirstDiagonal2(piece);
+        if(combination.getPieces().size()>2){
+            list_combinations.add(combination);
+        }
+
         //Second Diagonal
         combination = grid.checkSecondDiagonal2(piece);
         if(combination.getPieces().size()>2){
@@ -337,7 +390,33 @@ public class Game {
 
         grid.addPiece(6, player);
         grid.addPiece(5, player);*/
+
+        //Diagonal 1 
+
+        /*grid.addPiece(1, IA);
+
+        grid.addPiece(2, player);
+        grid.addPiece(2, IA);
         
+        grid.addPiece(3, IA);
+        grid.addPiece(3, IA);
+        grid.addPiece(3, player);
+
+        grid.addPiece(0, player);
+        grid.addPiece(1, player);*/
+
+        //---------------
+
+        grid.addPiece(3, player);
+        grid.addPiece(3, IA);
+        grid.addPiece(3, IA);
+        grid.addPiece(3, player);
+
+        grid.addPiece(2, IA);
+        grid.addPiece(2, IA);
+        grid.addPiece(2, player);
+
+        grid.addPiece(1, player);
 
         grid.printGrid();
 

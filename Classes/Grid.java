@@ -211,7 +211,7 @@ public class Grid{
             y--;
             x++;
         }
-        Combination combination = new Combination("second-diagonal", alignied_pieces);
+        Combination combination = new Combination("first-diagonal", alignied_pieces);
         return combination;
 
     }
