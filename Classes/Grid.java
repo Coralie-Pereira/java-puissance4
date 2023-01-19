@@ -61,8 +61,6 @@ public class Grid{
             }
             return new Piece(-1, -1);
             
-            
-            
         }
     
     public int getLastPieceLine(int column){

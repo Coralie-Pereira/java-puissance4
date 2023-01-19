@@ -76,10 +76,10 @@ public class Game {
             }
     }
     
-    public static int chooseColumn(){
+    public static int chooseColumn(Grid grid){
         System.out.println("Veuillez choisir une colonne entre 0 et 6");
         int choice = scan.nextInt();
-        while(choice<0 || choice>=COLS){
+        while((choice<0 || choice>=COLS) || grid.getLastPieceLine(choice)==0){
             System.out.println("Veuillez entrer une colonne valide");
             choice = scan.nextInt();
         }
@@ -126,8 +126,12 @@ public class Game {
         return max;
     }
 
-    public int IAChooseColumnLvl1(){
+    public int IAChooseColumnLvl1(Grid grid){
         int random_number = new Random().nextInt(7);
+        while(grid.getLastPieceLine(random_number)==0){
+            System.out.println(grid.getLastPieceLine(random_number));
+            random_number = new Random().nextInt(7);
+        }
         return random_number;
     }
 
@@ -143,8 +147,8 @@ public class Game {
                 int left_column = getColumnMin(combination.getPieces())-1;
                 int right_column = getColumnMax(combination.getPieces())+1;
 
-   
 
+                
                 //Gauche
                 if(left_column>=0){//Si on est pas dans la colonne tout a gauche
                     int line = combination.getPieces().get(0).getLine();
@@ -216,14 +220,10 @@ public class Game {
                 }
 
                 //Haut à droite
-                System.out.println("A");
                 if(right_column-1<COLS-1 && up_line>=0){ //Si on est pas dans la colonne tout a droite ni dans la ligne tout en  haut
-                    System.out.println("B");
                     if(grid.getGrid()[up_line][right_column].getColor()==null){//On vérifie que case en haut à droite est vide
-                        System.out.println("C");
                         
                         if(grid.getGrid()[up_line+1][right_column].getColor()!=null){//On vérifie que la case de gauche est pleine
-                            System.out.println("D");
                             return right_column;
                         }
                        
@@ -301,7 +301,7 @@ public class Game {
         }
 
 
-        return IAChooseColumnLvl1();
+        return IAChooseColumnLvl1(grid);
     }
    
 
@@ -461,7 +461,7 @@ public class Game {
                return;
             }
             //Tour du joueur
-            int column = chooseColumn();
+            int column = chooseColumn(grid);
             Piece piece = grid.addPiece(column, player);
             grid.printGrid();
             if(grid.checkVictory(piece)){
@@ -474,7 +474,7 @@ public class Game {
 
             //Tour de l'IA
             if(ia_level==1){
-                piece = grid.addPiece(IAChooseColumnLvl1(),IA);
+                piece = grid.addPiece(IAChooseColumnLvl1(grid),IA);
             }
             else{
                 piece = grid.addPiece(IAChooseColumnLvl2(grid,piece), IA);
@@ -518,7 +518,7 @@ public class Game {
                 in_game = false;
             }
             
-            int column = chooseColumn();
+            int column = chooseColumn(grid);
             Piece piece = grid.addPiece(column, player1);
             grid.printGrid();
             if(grid.checkVictory(piece)){
@@ -528,7 +528,7 @@ public class Game {
                 return;
             }
 
-            int column2 = chooseColumn();
+            int column2 = chooseColumn(grid);
             piece =  grid.addPiece(column2, player2);
             grid.printGrid();
 
