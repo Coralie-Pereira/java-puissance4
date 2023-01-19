@@ -2,7 +2,6 @@ package Classes;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Grid{
 
@@ -33,8 +32,31 @@ public class Grid{
     
 
     public void printGrid() {
-        System.out.print("0 1 2 3 4 5 6");
+
+        System.out.print("  0  1  2  3  4  5  6");
         System.out.println();
+        
+        for(int t=0; t<COLS+2+2*COLS;t++){
+            System.out.print('-');
+        }
+        System.out.println();
+
+        for(int y=0; y<ROWS ;y++){
+            System.out.print("|");
+            for(int x=0; x<COLS; x++){
+                System.out.print(" " + this.grid[y][x].printPiece() + " ");
+            }
+            System.out.print("|");
+            System.out.println();
+        }
+
+        for(int t=0; t<COLS+2+2*COLS;t++){
+            System.out.print('-');
+        }
+        System.out.println();
+
+
+        /*System.out.println();
         for (int line = 0; line < ROWS; line++) {
             for (int column = 0; column < COLS; column++) {
                 
@@ -42,7 +64,7 @@ public class Grid{
             }
             // Passage à la ligne après chaque ligne de la grille
             System.out.println();
-        }
+        }*/
     }
 
     public Piece addPiece(int column, Player player){
@@ -86,18 +108,6 @@ public class Grid{
         return true;
     }
     
-    public List<Piece> checkVertically(Piece piece){
-        int y = piece.getLine();
-        List<Piece> alignied_pieces = new ArrayList<Piece>();
-        alignied_pieces.add(piece);
-        
-        while(y<ROWS-1 && grid[y+1][piece.getColumn()].getColor() == piece.getColor()){
-            alignied_pieces.add(grid[y+1][piece.getColumn()]);
-            y++;
-        }
-        return alignied_pieces;
-    }
-
     public Combination checkVertically2(Piece piece){
         int y = piece.getLine();
         ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
@@ -120,6 +130,9 @@ public class Grid{
         alignied_pieces.add(piece);
         
         while(x>0 && grid[piece.getLine()][x-1].getColor() == piece.getColor()){
+            /*if(x>1 &&grid[piece.getLine()][x-1].getColor() ==null && grid[piece.getLine()][x-2].getColor()== piece.getColor()){
+                alignied_pieces.add(grid[piece.getLine()][x-2]);
+            }*/
             alignied_pieces.add(grid[piece.getLine()][x-1]);
             x--;
         }
@@ -127,6 +140,9 @@ public class Grid{
         x = piece.getColumn();
 
         while(x<COLS-1 && grid[piece.getLine()][x+1].getColor() == piece.getColor()){
+            /*if(x<COLS-2 && grid[piece.getLine()][x+1].getColor() ==null && grid[piece.getLine()][x+2].getColor()== piece.getColor()){
+                alignied_pieces.add(grid[piece.getLine()][x+2]);
+            }*/
             alignied_pieces.add(grid[piece.getLine()][x+1]);
             x++;
         }
@@ -135,54 +151,7 @@ public class Grid{
         return combination;
     }
 
-    public List<Piece> checkHorizontally(Piece piece){
-        //Verifier à gauche
-        int x = piece.getColumn();
-        List<Piece> alignied_pieces = new ArrayList<Piece>();
-        alignied_pieces.add(piece);
-        
-        while(x>0 && grid[piece.getLine()][x-1].getColor() == piece.getColor()){
-            alignied_pieces.add(grid[piece.getLine()][x-1]);
-            x--;
-        }
-        //Verifier à droite
-        x = piece.getColumn();
 
-        while(x<COLS-1 && grid[piece.getLine()][x+1].getColor() == piece.getColor()){
-            alignied_pieces.add(grid[piece.getLine()][x+1]);
-            x++;
-        }
-        return alignied_pieces;
-    }
-
-    public List<Piece> checkFirstDiagonal(Piece piece){
-        List<Piece> alignied_pieces = new ArrayList<Piece>();
-        alignied_pieces.add(piece);
-
-        //Cas n°1 : diagonale gauche->droite, bas -> haut
-
-        //Verifier à gauche
-        int x = piece.getColumn();
-        int y = piece.getLine();
-
-        while(x>0 && y<ROWS-1 && grid[y+1][x-1].getColor() == piece.getColor()){
-            alignied_pieces.add(grid[y+1][x-1]);
-            y++;
-            x--;
-        }
-        //Verifier à droite
-        x = piece.getColumn();
-        y = piece.getLine();
-
-        while(x<COLS-1 && y>0 && grid[y-1][x+1].getColor() == piece.getColor()){
-
-            alignied_pieces.add(grid[y-1][x+1]);
-            y--;
-            x++;
-        }
-        return alignied_pieces;
-
-    }
 
     public Combination checkFirstDiagonal2(Piece piece){
         ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
@@ -212,35 +181,6 @@ public class Grid{
         Combination combination = new Combination("first-diagonal", alignied_pieces);
         return combination;
 
-    }
-
-    public List<Piece> checkSecondDiagonal(Piece piece){
-        //Cas n°2 : diagonale gauche->droite, haut -> bas
-
-        List<Piece> alignied_pieces = new ArrayList<Piece>();
-        alignied_pieces.add(piece);
-        //Verifier à gauche
-
-        int x = piece.getColumn();
-        int y = piece.getLine();
-
-        while(x>0 && y>0 && grid[y-1][x-1].getColor() == piece.getColor()){
-
-            alignied_pieces.add(grid[y-1][x-1]);
-            x--;
-            y--;
-        }
-         //Verifier à droite
-         x = piece.getColumn();
-         y = piece.getLine();
-
-         while(x<COLS-1 && y<ROWS-1 && grid[y+1][x+1].getColor() == piece.getColor()){
-            
-            alignied_pieces.add(grid[y+1][x+1]);
-            x++;
-            y++;
-        }
-        return alignied_pieces;
     }
 
     public Combination checkSecondDiagonal2(Piece piece){
