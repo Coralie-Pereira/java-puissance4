@@ -135,172 +135,227 @@ public class Game {
         return random_number;
     }
 
-    public int getValidMove(Combination combination, Grid grid){
-        if(combination.getType()=="vertical" ){
-            if(combination.getPieces().size()>2 &&combination.getPieces().get(combination.getPieces().size()-1).getColumn() <ROWS-1){
-                list_combinations.remove(combination);
-                return combination.getPieces().get(0).getColumn();
-            }
-        }
-        if(combination.getType()=="horizontal"){
-            if(combination.getPieces().size()>2){
-                int left_column = getColumnMin(combination.getPieces())-1;
-                int right_column = getColumnMax(combination.getPieces())+1;
+    public int getValidMove(Grid grid){
 
+        if(!list_combinations.isEmpty()){
+            try{
+                for (Combination combination : list_combinations) {
+                    if(combination.getType()=="vertical" ){
+                        System.out.println("path vertical");
 
-                
-                //Gauche
-                if(left_column>=0){//Si on est pas dans la colonne tout a gauche
-                    int line = combination.getPieces().get(0).getLine();
-                    if(grid.getGrid()[line][left_column].getColor() ==null){//Si colonne-1 de la pièce à gauche est vide
-                        if(line!=ROWS-1){//Si on est pas dans la ligne du bas
-                            if(grid.getGrid()[line+1][left_column].getColor()!=null){// On vérifie que la case colonne à gauche de la piece + ligne+1 est une case pleine
-                                if(grid.getGrid()[line][right_column].getColor()!=null){
+                        if(combination.getPieces().size()>2 &&combination.getPieces().get(combination.getPieces().size()-1).getColumn() <ROWS-1){
+                            System.out.println("Combinaison vertical deleted");
+                            list_combinations.remove(combination);
+                            return combination.getPieces().get(0).getColumn();
+                        }
+                    }
+                    if(combination.getType()=="horizontal"){
+
+                        System.out.println("path horizontal");
+
+                        if(combination.getPieces().size()>2){
+                            int left_column = getColumnMin(combination.getPieces())-1;
+                            int right_column = getColumnMax(combination.getPieces())+1;
+            
+                            //Conditions pour remove une combinaison
+                            if(left_column<0){
+                                if(right_column>=COLS-1){
+                                    System.out.println("Combinaison horizontal deleted");
                                     list_combinations.remove(combination);
                                 }
-                                return left_column;
-                            }
-                        }else{
-                            if(grid.getGrid()[line][right_column].getColor()!=null){
-                                list_combinations.remove(combination);
-                            }
-                            return left_column;
-                        }
-                    }
-                }
-                //Droite
-                if(right_column-1<COLS-1){ //Si on est pas dans la colonne tout à droite
-                    int line = combination.getPieces().get(0).getLine();
-                    if(grid.getGrid()[line][right_column].getColor() ==null){//Si colonne+1 de la pièce à droite est vide
-                        if(line!=ROWS-1){//Si on est pas dans la ligne du bas
-                            if(grid.getGrid()[line+1][right_column].getColor()!=null){ // On vérifie que la case colonne à droite de la piece + ligne+1 est une case pleine
-                                if(grid.getGrid()[line][left_column].getColor()!=null){
+                                else if(grid.getGrid()[combination.getPieces().get(0).getLine()][right_column].getColor() !=null){
+                                    System.out.println("Combinaison horizontal deleted");
                                     list_combinations.remove(combination);
                                 }
-                                return right_column;
                             }
-                        }else{
-                            if(grid.getGrid()[line][left_column].getColor()!=null){
-                                list_combinations.remove(combination);
+                            else if(grid.getGrid()[combination.getPieces().get(0).getLine()][left_column].getColor() !=null){
+                                if(right_column>=COLS-1){
+                                    System.out.println("Combinaison horizontal deleted");
+                                    list_combinations.remove(combination);
+                                }
+                                else if(grid.getGrid()[combination.getPieces().get(0).getLine()][right_column].getColor() !=null){
+                                    System.out.println("Combinaison horizontal deleted");
+                                    list_combinations.remove(combination);
+                                }
                             }
-                            return right_column;
-                        }
-                    }
-                }
+  
+                            //Gauche
+                            if(left_column>=0){//Si on est pas dans la colonne tout a gauche
 
-
-                
-            }
-        }
-        if(combination.getType()=="first-diagonal"){
-
-            if(combination.getPieces().size()>2){
-                int left_column = getColumnMin(combination.getPieces())-1;
-                int right_column = getColumnMax(combination.getPieces())+1;
-                int up_line = getLineMin(combination.getPieces())-1;
-                int bottom_line = getLineMax(combination.getPieces())+1;
-
-                //Bas à gauche
-
-
-                if(left_column>=0 && bottom_line-1<ROWS-1){//Si on est pas dans la colonne tout à gauche ni dans la ligne tout à bas
-                    if(grid.getGrid()[bottom_line][left_column].getColor()==null){//On vérifie que case en bas à gauche est vide
-                        if(bottom_line<ROWS-1){
-                            if(grid.getGrid()[bottom_line+1][left_column].getColor()!=null){//On vérifie que la case de gauche est pleine
-                                return left_column;
+                                int line = combination.getPieces().get(0).getLine();
+                                if(grid.getGrid()[line][left_column].getColor() ==null){//Si colonne-1 de la pièce à gauche est vide
+                                    if(line!=ROWS-1){//Si on est pas dans la ligne du bas
+                                        if(grid.getGrid()[line+1][left_column].getColor()!=null){// On vérifie que la case colonne à gauche de la piece + ligne+1 est une case pleine
+                                            if(grid.getGrid()[line][right_column].getColor()!=null){
+                                                //list_combinations.remove(combination);
+                                            }
+                                            return left_column;
+                                        }
+                                    }else{
+                                        if(grid.getGrid()[line][right_column].getColor()!=null){
+                                            //list_combinations.remove(combination);
+                                        }
+                                        return left_column;
+                                    }
+                                }
                             }
-                        }else{
-                            return left_column;
-                        }
-                        
-                    }
-                    if(grid.getGrid()[bottom_line][left_column].getColor()!=null){
-                        list_combinations.remove(combination);
-                    }
-                }
-
-                //Haut à droite
-                if(right_column-1<COLS-1 && up_line>=0){ //Si on est pas dans la colonne tout a droite ni dans la ligne tout en  haut
-                    if(grid.getGrid()[up_line][right_column].getColor()==null){//On vérifie que case en haut à droite est vide
-                        
-                        if(grid.getGrid()[up_line+1][right_column].getColor()!=null){//On vérifie que la case de gauche est pleine
-                            return right_column;
-                        }
-                       
-                        
-                    }
-                    if(grid.getGrid()[up_line][right_column].getColor()!=null){
-                        list_combinations.remove(combination);
-                    }
-                }
-                
-
-            }
-           
-
-        }
-        if(combination.getType()=="second-diagonal"){
-             /*
-             * Gauche :
-             * Pion à gauche ne soit pas tout à gauche
-             * Pion à gauche ne soit pas tout en haut
-             * 
-             * Case c-1 l-1 vide
-             * Case c-1 l pleine
-             * 
-             * Droite
-             * Pion à droite ne soit pas tout à droite
-             * Pion à droite ne soit pas tout en bas
-             * 
-             * Case c+1 l+1 vide
-             * Case c+1 l pleine
-             */
-
-             if(combination.getPieces().size()>2){
-                int left_column = getColumnMin(combination.getPieces())-1;
-                int right_column = getColumnMax(combination.getPieces())+1;
-                int up_line = getLineMin(combination.getPieces())-1;
-                int bottom_line = getLineMax(combination.getPieces())+1;
-
-                //Gauche
-                if(left_column>=0 && up_line>=0){ //Si on est pas dans la colonne tout a gauche ni dans la ligne tout en haut
-                    if(grid.getGrid()[up_line][left_column].getColor()==null){//On vérifie que case en haut à gauche est vide
-                        if(grid.getGrid()[up_line+1][left_column].getColor()!=null){//On vérifie que la case de gauche est pleine
                             
-                            return left_column;
+                            //Droite
+                            System.out.println("A");
+                            if(right_column-1<COLS-1){ //Si on est pas dans la colonne tout à droite
+                                System.out.println("B");
+                                int line = combination.getPieces().get(0).getLine();
+                                if(grid.getGrid()[line][right_column].getColor() ==null){//Si colonne+1 de la pièce à droite est vide
+                                    System.out.println("C");
+                                    if(line!=ROWS-1){//Si on est pas dans la ligne du bas
+                                        System.out.println("D");
+                                        if(grid.getGrid()[line+1][right_column].getColor()!=null){ // On vérifie que la case colonne à droite de la piece + ligne+1 est une case pleine
+                                            System.out.println("E");
+                                            if(grid.getGrid()[line][left_column].getColor()!=null){
+                                                //list_combinations.remove(combination);
+                                            }
+                                            return right_column;
+                                        }
+                                    }
+                                    else{
+                                        return right_column;
+                                    }
+                                }
+                            }         
                         }
                     }
-                    if(grid.getGrid()[up_line][left_column].getColor()!=null){
-                        list_combinations.remove(combination);
-                    }
-                }
-                //Droite
-                
-                System.out.println(right_column);
-                System.out.println(bottom_line);
-                if(right_column-1<COLS-1 && bottom_line-1<ROWS-1){//Si on est pas dans la colonne tout a droite ni dans la ligne tout en bas
-                    if(grid.getGrid()[bottom_line][right_column].getColor()==null){//On vérifie que case en bas à droite est vide
-                        if(bottom_line<ROWS-1){
-                            if(grid.getGrid()[bottom_line+1][right_column].getColor()!=null){//On vérifie que la case de droite est pleine
+                    if(combination.getType()=="first-diagonal"){
+
+                        System.out.println("path : first diagonal");
+            
+                        if(combination.getPieces().size()>2){
+                            int left_column = getColumnMin(combination.getPieces())-1;
+                            int right_column = getColumnMax(combination.getPieces())+1;
+                            int up_line = getLineMin(combination.getPieces())-1;
+                            int bottom_line = getLineMax(combination.getPieces())+1;
+
+                             if(left_column<0 || bottom_line-1>=ROWS-1){
+                            
+                                if(right_column>=COLS-1 || up_line<0){
+                                    System.out.println("Combinaison first diagonal deleted");
+                                    list_combinations.remove(combination);
+                                }
+                                else if(grid.getGrid()[up_line][right_column].getColor()!=null){
+                                    System.out.println("Combinaison first diagonal deleted");
+                                    list_combinations.remove(combination);
+                                }
+                             }
+ 
+                             else if(grid.getGrid()[bottom_line][left_column].getColor()!=null){
                                 
-                                return right_column;
+                                if(right_column>=COLS-1 && up_line<0){
+                                    System.out.println("Combinaison first diagonal deleted");;
+                                    list_combinations.remove(combination);
+                                }
+                                else if(grid.getGrid()[up_line][right_column].getColor()!=null){
+                                    System.out.println("Combinaison first diagonal deleted");
+                                    list_combinations.remove(combination);
+                                }
+                             }                       
+            
+                            //Bas à gauche
+
+                            if(left_column>=0 && bottom_line-1<ROWS-1){//Si on est pas dans la colonne tout à gauche ni dans la ligne tout à bas
+                                if(grid.getGrid()[bottom_line][left_column].getColor()==null){//On vérifie que case en bas à gauche est vide
+                                    if(bottom_line<ROWS-1){
+                                        if(grid.getGrid()[bottom_line+1][left_column].getColor()!=null){//On vérifie que la case de gauche est pleine
+                                            return left_column;
+                                        }
+                                    }else{
+                                        return left_column;
+                                    } 
+                                }
+                            }
+            
+                            //Haut à droite
+                            if(right_column-1<COLS-1 && up_line>=0){ //Si on est pas dans la colonne tout a droite ni dans la ligne tout en  haut
+                                if(grid.getGrid()[up_line][right_column].getColor()==null){//On vérifie que case en haut à droite est vide
+                                    
+                                    if(grid.getGrid()[up_line+1][right_column].getColor()!=null){//On vérifie que la case de gauche est pleine
+                                        return right_column;
+                                    }      
+                                }
                             }
                         }
-                        else{
-                            System.out.println("D");
-                            return right_column;
-
-                        }
                     }
-                    if(grid.getGrid()[bottom_line][right_column].getColor()!=null){
-                        list_combinations.remove(combination);
+                        if(combination.getType()=="second-diagonal"){
+
+                            System.out.println("path : second diagonal");
+
+                            if(combination.getPieces().size()>2){
+                               int left_column = getColumnMin(combination.getPieces())-1;
+                               int right_column = getColumnMax(combination.getPieces())+1;
+                               int up_line = getLineMin(combination.getPieces())-1;
+                               int bottom_line = getLineMax(combination.getPieces())+1;
+
+
+                                if(left_column<0 || up_line<0){
+
+                                    if(right_column>=COLS-1 || bottom_line >=ROWS-1){
+                                        System.out.println("Combinaison seconde diagonal deleted");
+                                        list_combinations.remove(combination);
+                                    }
+                                    else if(grid.getGrid()[bottom_line][right_column].getColor()!=null){
+                                        System.out.println("Combinaison seconde diagonal deleted");
+                                        list_combinations.remove(combination);
+                                    }
+
+                                }
+                                else if(grid.getGrid()[up_line][left_column].getColor()!=null){
+                                    if(right_column>=COLS-1 && bottom_line >=ROWS-1){
+                                        System.out.println("Combinaison seconde diagonal deleted");
+                                        list_combinations.remove(combination);
+                                    }
+                                    else if(grid.getGrid()[bottom_line][right_column].getColor()!=null){
+                                        System.out.println("Combinaison seconde diagonal deleted");
+                                        list_combinations.remove(combination);
+                                    }
+                                }
+               
+                               //Gauche
+                               if(left_column>=0 && up_line>=0){ //Si on est pas dans la colonne tout a gauche ni dans la ligne tout en haut
+                                   if(grid.getGrid()[up_line][left_column].getColor()==null){//On vérifie que case en haut à gauche est vide
+                                       if(grid.getGrid()[up_line+1][left_column].getColor()!=null){//On vérifie que la case de gauche est pleine
+                                           return left_column;
+                                       }
+                                   }
+                                   if(grid.getGrid()[up_line][left_column].getColor()!=null){
+                                       list_combinations.remove(combination);
+                                   }
+                               }
+                               //Droite
+                               
+                               System.out.println(right_column);
+                               System.out.println(bottom_line);
+                               if(right_column-1<COLS-1 && bottom_line-1<ROWS-1){//Si on est pas dans la colonne tout a droite ni dans la ligne tout en bas
+                                   if(grid.getGrid()[bottom_line][right_column].getColor()==null){//On vérifie que case en bas à droite est vide
+                                       if(bottom_line<ROWS-1){
+                                           if(grid.getGrid()[bottom_line+1][right_column].getColor()!=null){//On vérifie que la case de droite est pleine
+                                               
+                                               return right_column;
+                                           }
+                                       }
+                                       else{
+                                           System.out.println("D");
+                                           return right_column;
+               
+                                       }
+                                   }
+                               }
+                           }
+                       }
                     }
                 }
 
-             }
+            catch(Exception e){  
+                getValidMove(grid);
+            }
         }
-
-
         return IAChooseColumnLvl1(grid);
     }
    
@@ -334,10 +389,7 @@ public class Game {
 
         System.out.println(list_combinations);
         sortBySize();
-        if(!list_combinations.isEmpty()){
-            combination = list_combinations.get(0);
-        }
-        return getValidMove(combination,grid);
+        return getValidMove(grid);
        
     }
 

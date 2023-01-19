@@ -1,0 +1,22 @@
+
+
+Rajouter un attribut score à la classe player
+
+
+-> Ajouter les scores du joueur
+
+On créer une variable score1 et score2 (si en multi) qui contiendront les scores
+A la fin de la partie on set le score du joueur à la valeur de la variable
+
+Faire un fichier qui contient les scores
+Ajouter le score du joueur de la façon suivante (nom_du_joueur;score) en mode append
+(FileWriter)
+
+-> Récupérer les scores et les afficher en console
+
+Fonction qui lit le fichier. (Utiliser fileReader pour lire le fichier ??)
+
+Trier les lignes par score décroissant 
+Et afficher les 10premiers
+
+
