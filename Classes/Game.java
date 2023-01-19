@@ -1,6 +1,12 @@
 package Classes;
 import java.util.Scanner;
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FilterWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -448,68 +454,6 @@ static int niveau = 0;
 
         niveau = ia_level;
 
-        /*grid.addPiece(0, IA);
-        grid.addPiece(0, IA);
-        grid.addPiece(0, IA);
-        grid.addPiece(0, player);
-        grid.addPiece(0, IA);
-
-        grid.addPiece(1, IA);
-        grid.addPiece(1, IA);
-        grid.addPiece(1, player);
-        grid.addPiece(1, IA);
-
-        grid.addPiece(2, player);
-        grid.addPiece(2, IA);
-        grid.addPiece(2, IA);
-
-        grid.addPiece(3, IA);
-        grid.addPiece(3, player);
-
-        grid.addPiece(3, player);
-        grid.addPiece(2, player);*/
-
-
-        //---------------------------
-
-        /*grid.addPiece(5, IA);
-        grid.addPiece(4, IA);
-        grid.addPiece(4, IA);
-
-        grid.addPiece(3, player);
-        grid.addPiece(3, IA);
-        grid.addPiece(3, IA);
-
-        grid.addPiece(6, player);
-        grid.addPiece(5, player);*/
-
-        //Diagonal 1 
-
-        /*grid.addPiece(1, IA);
-
-        grid.addPiece(2, player);
-        grid.addPiece(2, IA);
-        
-        grid.addPiece(3, IA);
-        grid.addPiece(3, IA);
-        grid.addPiece(3, player);
-
-        grid.addPiece(0, player);
-        grid.addPiece(1, player);*/
-
-        //---------------
-
-        /*grid.addPiece(3, player);
-        grid.addPiece(3, IA);
-        grid.addPiece(3, IA);
-        grid.addPiece(3, player);
-
-        grid.addPiece(2, IA);
-        grid.addPiece(2, IA);
-        grid.addPiece(2, player);
-
-        grid.addPiece(1, player);*/
-
         grid.printGrid();
 
         while(true){
@@ -526,6 +470,7 @@ static int niveau = 0;
                 player.setscore(score);
                 grid.printGrid();
                 System.out.println(player.getNom()+ " a gagné la partie bravo ! VOTRE SCORE EST DE " + player.getscore() );
+                saveScore(player);
                 list_combinations = new ArrayList<>();
                 Menu.showMenu();
                 return;
@@ -638,5 +583,48 @@ static int niveau = 0;
             }
             return points;
         }
+
+    public void saveScore(Player player){
+        try{
+            File myObj = new File("scores.csv");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            }
+            FileWriter writer = new FileWriter("scores.csv",true);
+            writer.append(player.getNom()+";"+player.getscore()+"\n");
+            writer.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void printScores(){
+        
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("scores.csv"));
+            String line;
+            int count_line=1;
+
+            ArrayList<Player> players= new ArrayList<>();
+
+            while((line=reader.readLine())!= null){
+                String[] parts = line.split(";");
+                players.add(new Player(parts[0], null, Integer.parseInt(parts[1])));
+                count_line++;
+            }
+
+            reader.close();
+
+            Collections.sort(players, new PlayerComparator());
+
+            for (int i = 0; i < players.size() && i<10; i++) {
+                System.out.println((i + 1) + "| Player: " + players.get(i).getNom() + " / Score: " + players.get(i).getscore());
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
 }

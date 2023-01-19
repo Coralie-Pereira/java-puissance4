@@ -60,7 +60,7 @@ public class Menu {
         }
 
     public  static void TopScore(){
-
+        Game.printScores();
     }
 
 }

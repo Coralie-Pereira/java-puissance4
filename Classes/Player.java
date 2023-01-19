@@ -3,6 +3,7 @@ package Classes;
 import java.awt.Color;
 
 
+
 public class Player {
   
     private String nom;
@@ -43,5 +44,6 @@ public class Player {
         this.score = score;
     }
 
-  
+    
 }
+
