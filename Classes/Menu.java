@@ -4,6 +4,9 @@ import java.util.Scanner;
 public class Menu {
 
     public static void showMenu(){
+        /*
+         * Show menu gamemodes in console and do the link with functions
+         */
         Menu.AfficherMenu();
         Scanner sc = new Scanner(System.in);
 
@@ -40,6 +43,9 @@ public class Menu {
     public static final String SEPARATEUR = ";";
 
     public static void AfficherMenu() {
+        /*
+         * Print menu gamemodes in console
+         */
         System.out.println("------ MENU ------");
         System.out.println("1- Jouer seul");
         System.out.println("2- Versus 1V1");
@@ -50,17 +56,26 @@ public class Menu {
     }
 
     public static void JouerSeul(){
+        /*
+         * Create a game and call function game vs ia
+         */
         Game game = new Game();
         game.menuIALEVEL();
     }
 
     public  static void Versus(){
+        /*
+         * Create a game and call function game vs another player
+         */
         Game game = new Game();
         game.playMultiplayer();
             
         }
 
     public  static void TopScore(){
+        /*
+         * Call function who print top 10 scores in the console
+         */
         Game.printScores();
     }
 
