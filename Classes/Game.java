@@ -352,11 +352,13 @@ public class Game {
             switch (choix) {
                 case "1":
                 System.out.println("niveau facile");
+                playSingleplayer(1);
 
                 break;
 
                 case "2":
                 System.out.println("niveau moyen");
+                playSingleplayer(2);
                 break;
 
                 case "3":
@@ -383,7 +385,7 @@ public class Game {
     }
     
 
-    public void playSingleplayer(){
+    public void playSingleplayer(int ia_level){
         Player player = createPlayer();
         Player IA = new Player("IA", Color.WHITE);
 
@@ -458,7 +460,7 @@ public class Game {
             if(grid.isFull()){
                return;
             }
-            
+            //Tour du joueur
             int column = chooseColumn();
             Piece piece = grid.addPiece(column, player);
             grid.printGrid();
@@ -470,7 +472,14 @@ public class Game {
                 return;
             }
 
-            piece = grid.addPiece(IAChooseColumnLvl2(grid,piece), IA);
+            //Tour de l'IA
+            if(ia_level==1){
+                piece = grid.addPiece(IAChooseColumnLvl1(),IA);
+            }
+            else{
+                piece = grid.addPiece(IAChooseColumnLvl2(grid,piece), IA);
+            }
+            
             grid.printGrid();
 
            
@@ -482,7 +491,6 @@ public class Game {
                 Menu.showMenu();
                 return;
             }
-
         }
     }
 

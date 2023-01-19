@@ -8,5 +8,3 @@ public class Main {
     }
 
 }
-
-//Stocker les combinaisons de pièces alignées et vérifier à chaque tour si on peut les résoudre

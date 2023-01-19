@@ -14,10 +14,7 @@ public class Menu {
 
             switch (choix) {
                 case "1":
-                    System.out.println("test");
-                    JouerSeul();
-                    
-                    
+                    JouerSeul();            
                     break;
                 case "2":
                     Versus();
@@ -53,7 +50,7 @@ public class Menu {
 
     public static void JouerSeul(){
         Game game = new Game();
-        game.playSingleplayer();
+        game.menuIALEVEL();
     }
 
     public  static void Versus(){
