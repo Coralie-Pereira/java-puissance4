@@ -14,7 +14,9 @@ public class Menu {
 
             switch (choix) {
                 case "1":
-                    JouerSeul();            
+                    JouerSeul();
+                    
+                    
                     break;
                 case "2":
                     Versus();

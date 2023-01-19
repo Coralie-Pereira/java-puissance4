@@ -2,7 +2,7 @@ package Classes;
 
 import java.util.ArrayList;
 
-public class  Combination {
+public class Combination {
 
 
     private String type;
