@@ -4,17 +4,17 @@ import java.util.Scanner;
 public class Menu {
 
     public static void showMenu(){
-        Scanner sc = new Scanner(System.in);
-
         Menu.AfficherMenu();
+        Scanner sc = new Scanner(System.in);
 
         while (true) {
             String choix = sc.nextLine();
             
 
             switch (choix) {
-                case "1":
-                    JouerSeul();            
+                case "1": 
+                    JouerSeul(); 
+                            
                     break;
                 case "2":
                     Versus();
@@ -23,6 +23,7 @@ public class Menu {
                     
                 case "3":
                     TopScore();
+                    
                     break;
                        
                 case "4":

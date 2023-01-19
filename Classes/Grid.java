@@ -19,6 +19,9 @@ public class Grid{
 
 
     public void createGrid(){
+        /*
+         * Create a new grid 
+         */
         
         Piece[][] grid = new Piece[ROWS][COLS];
 
@@ -32,6 +35,9 @@ public class Grid{
     
 
     public void printGrid() {
+        /*
+         * Print grid in console
+         */
 
         System.out.print("  0  1  2  3  4  5  6");
         System.out.println();
@@ -55,20 +61,15 @@ public class Grid{
         }
         System.out.println();
 
-
-        /*System.out.println();
-        for (int line = 0; line < ROWS; line++) {
-            for (int column = 0; column < COLS; column++) {
-                
-                System.out.print(this.grid[line][column].printPiece() + " ");
-            }
-            // Passage à la ligne après chaque ligne de la grille
-            System.out.println();
-        }*/
     }
 
     public Piece addPiece(int column, Player player){
-        //args : color (String)
+        /*
+         * Add a piece in the grid (change element)
+         * @param column(int): piece to add column
+         * @param player(Player): new piece's player
+         * @return (Piece): piece added 
+         */
 
             for( int line = ROWS-1; line>=0; line--){
                 if(this.grid[line][column].getColor()==null){
@@ -86,6 +87,11 @@ public class Grid{
         }
     
     public int getLastPieceLine(int column){
+        /*
+         * Get last piece's line of the column
+         * @param column(int) : index of the column
+         * @return (int): index of the line
+         */
         int last_line = ROWS-1;
         for(int line = ROWS-1; line>0; line--){
             if(this.grid[line-1][column].getColor() !=null){
@@ -98,6 +104,10 @@ public class Grid{
     
 
     public boolean isFull(){
+        /*
+         * Return if the grid is full
+         * @return (boolean): true if grid is full, false if no
+         */
         for (int line = 0; line < ROWS; line++) {
             for (int column = 0; column < COLS; column++) {
                 if(this.grid[line][column].getColor() ==null){
@@ -109,6 +119,11 @@ public class Grid{
     }
     
     public Combination checkVertically2(Piece piece){
+        /*
+         * Create a new vertical Combination with alignied pieces
+         * @param piece(Piece): piece added waiting for check Combination
+         * @return (Combination): Combination of alignied pieces 
+         */
         int y = piece.getLine();
         ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
         alignied_pieces.add(piece);
@@ -124,6 +139,11 @@ public class Grid{
     }
 
     public Combination checkHorizontally2(Piece piece){
+        /*
+         * Create a new horizontal Combination with alignied pieces
+         * @param piece(Piece): piece added waiting for check Combination
+         * @return (Combination): Combination of alignied pieces 
+         */
         int x = piece.getColumn();
         ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
 
@@ -154,6 +174,11 @@ public class Grid{
 
 
     public Combination checkFirstDiagonal2(Piece piece){
+        /*
+         * Create a new first-diagonal Combination with alignied pieces
+         * @param piece(Piece): piece added waiting for check Combination
+         * @return (Combination): Combination of alignied pieces 
+         */
         ArrayList<Piece> alignied_pieces = new ArrayList<Piece>();
         alignied_pieces.add(piece);
 
@@ -184,6 +209,11 @@ public class Grid{
     }
 
     public Combination checkSecondDiagonal2(Piece piece){
+        /*
+         * Create a new second-diagonal Combination with alignied pieces
+         * @param piece(Piece): piece added waiting for check Combination
+         * @return (Combination): Combination of alignied pieces 
+         */
 
         int x = piece.getColumn();
         int y = piece.getLine();
@@ -212,7 +242,11 @@ public class Grid{
     }
 
     public boolean checkVictory(Piece piece){
-
+        /*
+         * Return if combination has at least 4 alignied pieces (win)
+         * @param piece(Piece): piece to check
+         * @return (boolean): true if 4 pieces are alignied, false if no
+         */
 
         Combination combination = checkVertically2(piece);
         if(combination.getPieces().size() >=4){
@@ -232,7 +266,7 @@ public class Grid{
             return true;
         }
         combination = checkSecondDiagonal2(piece);
-        if(combination.getPieces().size() >=4){
+        if(combination.getPieces().size() >=4) {
             highlightWinningPieces(combination);
             return true;
         }

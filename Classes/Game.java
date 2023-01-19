@@ -34,9 +34,11 @@ public class Game {
     });
     }
     
-    public Player createPlayer(){
+    public Player createPlayer(){ 
         System.out.println("Entrez le nom du joueur");
+
         String name = scan.nextLine();
+
         Color color = chooseColor();
         Player player = new Player(name, color,0);
         return player;
@@ -404,12 +406,11 @@ public class Game {
 
 static int niveau = 0;
     public void menuIALEVEL(){
-        Scanner sc = new Scanner(System.in);
-
         chooseIALevel();
-
+        
+        
         while (true) {
-            String choix = sc.nextLine();
+            String choix = scan.nextLine();
             switch (choix) {
                 case "1":
                 playSingleplayer(1);
@@ -427,7 +428,7 @@ static int niveau = 0;
                 break;
 
                 case "4":
-                sc.close();
+                scan.close();
                 System.out.println("niveau expert");
 
                 break;
