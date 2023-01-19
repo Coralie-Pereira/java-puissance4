@@ -13,9 +13,7 @@ public class Combination {
 
     public Combination(String type, ArrayList<Piece> pieces){
         this.type = type;
-        this.pieces = pieces;
-        //Combination.list_combinations.add(pieces);
-    
+        this.pieces = pieces;    
     }
    
     public String getType() {
@@ -33,15 +31,6 @@ public class Combination {
     public void setPieces(ArrayList<Piece> pieces) {
         this.pieces = pieces;
     }
-
-   /*  public void addCombination(ArrayList<Piece> combination){
-        list_combinations.add(combination);
-    }
-    
-    public void removeCombination(ArrayList<Piece> combination){
-        list_combinations.remove(combination);
-    }
-    */
     
 
     

@@ -215,6 +215,49 @@ public class Game {
              * Case c+1 l+1 vide
              * Case c+1 l pleine
              */
+
+             if(combination.getPieces().size()>2){
+                int left_column = getColumnMin(combination.getPieces())-1;
+                int right_column = getColumnMax(combination.getPieces())+1;
+                int up_line = getLineMin(combination.getPieces())-1;
+                int bottom_line = getLineMax(combination.getPieces())+1;
+
+                //Gauche
+                if(left_column>=0 && up_line>=0){ //Si on est pas dans la colonne tout a gauche ni dans la ligne tout en haut
+                    if(grid.getGrid()[up_line][left_column].getColor()==null){//On vérifie que case en haut à gauche est vide
+                        if(grid.getGrid()[up_line+1][left_column].getColor()!=null){//On vérifie que la case de gauche est pleine
+                            
+                            return left_column;
+                        }
+                    }
+                    if(grid.getGrid()[up_line][left_column].getColor()!=null){
+                        list_combinations.remove(combination);
+                    }
+                }
+                //Droite
+                
+                System.out.println(right_column);
+                System.out.println(bottom_line);
+                if(right_column-1<COLS-1 && bottom_line-1<ROWS-1){//Si on est pas dans la colonne tout a droite ni dans la ligne tout en bas
+                    if(grid.getGrid()[bottom_line][right_column].getColor()==null){//On vérifie que case en bas à droite est vide
+                        if(bottom_line<ROWS-1){
+                            if(grid.getGrid()[bottom_line+1][right_column].getColor()!=null){//On vérifie que la case de droite est pleine
+                                
+                                return right_column;
+                            }
+                        }
+                        else{
+                            System.out.println("D");
+                            return right_column;
+
+                        }
+                    }
+                    if(grid.getGrid()[bottom_line][right_column].getColor()!=null){
+                        list_combinations.remove(combination);
+                    }
+                }
+
+             }
         }
 
 
@@ -236,6 +279,13 @@ public class Game {
             list_combinations.add(combination); 
         }
 
+        //Second Diagonal
+        combination = grid.checkSecondDiagonal2(piece);
+        if(combination.getPieces().size()>2){
+            list_combinations.add(combination);
+        }
+
+
         System.out.println(list_combinations);
         sortBySize();
         if(!list_combinations.isEmpty()){
@@ -252,6 +302,43 @@ public class Game {
 
         Grid grid = new Grid();
         grid.createGrid();
+
+        /*grid.addPiece(0, IA);
+        grid.addPiece(0, IA);
+        grid.addPiece(0, IA);
+        grid.addPiece(0, player);
+        grid.addPiece(0, IA);
+
+        grid.addPiece(1, IA);
+        grid.addPiece(1, IA);
+        grid.addPiece(1, player);
+        grid.addPiece(1, IA);
+
+        grid.addPiece(2, player);
+        grid.addPiece(2, IA);
+        grid.addPiece(2, IA);
+
+        grid.addPiece(3, IA);
+        grid.addPiece(3, player);
+
+        grid.addPiece(3, player);
+        grid.addPiece(2, player);*/
+
+
+        //---------------------------
+
+        /*grid.addPiece(5, IA);
+        grid.addPiece(4, IA);
+        grid.addPiece(4, IA);
+
+        grid.addPiece(3, player);
+        grid.addPiece(3, IA);
+        grid.addPiece(3, IA);
+
+        grid.addPiece(6, player);
+        grid.addPiece(5, player);*/
+        
+
         grid.printGrid();
 
         while(true){
@@ -264,7 +351,7 @@ public class Game {
             grid.printGrid();
             if(grid.checkVictory(piece)){
                 grid.printGrid();
-                System.out.println("Vous avez gagné la partie bravo ! ");
+                System.out.println(player.getNom()+" a gagné la partie bravo ! ");
                 Menu.showMenu();
                 return;
             }
@@ -272,9 +359,11 @@ public class Game {
             piece = grid.addPiece(IAChooseColumnLvl2(grid,piece), IA);
             grid.printGrid();
 
+           
+
             if(grid.checkVictory(piece)){
                 grid.printGrid();
-                System.out.println("L'IA a gagné ! ");
+                System.out.println(player.getNom()+" a gagné la partie bravo ! ");
                 Menu.showMenu();
                 return;
             }
@@ -294,6 +383,9 @@ public class Game {
 
         Grid grid = new Grid();
         grid.createGrid();
+
+        
+
         grid.printGrid();
 
         boolean in_game = true;
