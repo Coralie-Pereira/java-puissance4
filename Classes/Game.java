@@ -523,11 +523,15 @@ static int niveau = 0;
             }
             
             int column = chooseColumn(grid);
+            counttours ++;
             Piece piece = grid.addPiece(column, player1);
             grid.printGrid();
             if(grid.checkVictory(piece)){
+                int score = ScoreVersus(counttours);
+                player1.setscore(score);
                 grid.printGrid();
-                System.out.println(player1.getNom() +" a gagné la partie bravo ! ");
+                System.out.println(player1.getNom()+ " a gagné la partie bravo ! VOTRE SCORE EST DE " + player1.getscore() );
+                saveScore(player1);
                 Menu.showMenu();
                 return;
             }
@@ -536,9 +540,14 @@ static int niveau = 0;
             piece =  grid.addPiece(column2, player2);
             grid.printGrid();
 
+            counttours++;
+
             if(grid.checkVictory(piece)){
+                int score = ScoreVersus(counttours);
+                player2.setscore(score);
                 grid.printGrid();
-                System.out.println(player2.getNom() +" a gagné la partie bravo ! ");
+                System.out.println(player2.getNom()+ " a gagné la partie bravo ! VOTRE SCORE EST DE " + player2.getscore() );
+                saveScore(player2);
                 Menu.showMenu();
                 return;
             }
@@ -583,6 +592,15 @@ static int niveau = 0;
             }
             return points;
         }
+
+    public int ScoreVersus(int counttours){
+        // on prepare le niveau + le compteur de points
+        int points = 10000; // le compteur de point
+                points -= 100 * counttours; 
+                // ajoute 15 points pour chaque victoire en mode facile
+                points += 15;
+                return points;
+    }
 
     public void saveScore(Player player){
         try{
