@@ -9,11 +9,11 @@ Personne du groupe :
 - Hamza
 - Marko
 
-Créer le tableau : Coralie , Diego\n
-Créer le menu : Marko\n
-Couleur : Coralie , Diego\n
-Jeux 1v1 : Coralie, Diego , Marko\n
-Top Score : Coralie, Diego , Marko, Hamza\n
-Niveau de l'IA : Coralie, Diego , Marko\n
-Modifier l'affichage console du puissance 4: Coralie, Diego\n
-Faire un menu qui choisit le niveau de l'IA : Coralie, Diego , Marko\n
+Créer le tableau : Coralie , Diego<br>
+Créer le menu : Marko<br>
+Couleur : Coralie , Diego<br>
+Jeux 1v1 : Coralie, Diego , Marko<br>
+Top Score : Coralie, Diego , Marko, Hamza<br>
+Niveau de l'IA : Coralie, Diego , Marko<br>
+Modifier l'affichage console du puissance 4: Coralie, Diego<br>
+Faire un menu qui choisit le niveau de l'IA : Coralie, Diego , Marko<br>
