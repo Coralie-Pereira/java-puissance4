@@ -407,7 +407,7 @@ public class Game {
 
         //---------------
 
-        grid.addPiece(3, player);
+        /*grid.addPiece(3, player);
         grid.addPiece(3, IA);
         grid.addPiece(3, IA);
         grid.addPiece(3, player);
@@ -416,7 +416,7 @@ public class Game {
         grid.addPiece(2, IA);
         grid.addPiece(2, player);
 
-        grid.addPiece(1, player);
+        grid.addPiece(1, player);*/
 
         grid.printGrid();
 
@@ -431,6 +431,7 @@ public class Game {
             if(grid.checkVictory(piece)){
                 grid.printGrid();
                 System.out.println(player.getNom()+" a gagné la partie bravo ! ");
+                list_combinations = new ArrayList<>();
                 Menu.showMenu();
                 return;
             }
@@ -443,6 +444,7 @@ public class Game {
             if(grid.checkVictory(piece)){
                 grid.printGrid();
                 System.out.println(player.getNom()+" a gagné la partie bravo ! ");
+                list_combinations = new ArrayList<>();
                 Menu.showMenu();
                 return;
             }

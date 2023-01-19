@@ -276,32 +276,36 @@ public class Grid{
     public boolean checkVictory(Piece piece){
 
 
-        List<Piece> alignied_pieces = checkVertically(piece);
-        if(alignied_pieces.size()>=4){
-            highlightWinningPieces(alignied_pieces);
+        Combination combination = checkVertically2(piece);
+        if(combination.getPieces().size() >=4){
+            highlightWinningPieces(combination);
             return true;
         }
-       alignied_pieces = checkFirstDiagonal(piece);
-        if(alignied_pieces.size()>=4){
-            highlightWinningPieces(alignied_pieces);
+
+        combination = checkHorizontally2(piece);
+        if(combination.getPieces().size() >=4){
+            highlightWinningPieces(combination);
             return true;
         }
-        alignied_pieces = checkSecondDiagonal(piece);
-        if(alignied_pieces.size()>=4){
-            highlightWinningPieces(alignied_pieces);
+
+        combination = checkFirstDiagonal2(piece);
+        if(combination.getPieces().size() >=4){
+            highlightWinningPieces(combination);
             return true;
         }
-        alignied_pieces = checkHorizontally(piece);
-        if(alignied_pieces.size()>=4){
-            highlightWinningPieces(alignied_pieces);
+        combination = checkSecondDiagonal2(piece);
+        if(combination.getPieces().size() >=4){
+            highlightWinningPieces(combination);
             return true;
         }
+        
 
         return false;
                 
     }
-    public void highlightWinningPieces(List<Piece> pieces){
-        for (Piece piece : pieces) {
+    public void highlightWinningPieces(Combination pieces){
+
+        for (Piece piece : pieces.getPieces()) {
             piece.setColor(Color.CYAN);
         }
     }
