@@ -191,7 +191,6 @@ public class Game {
          */
         int random_number = new Random().nextInt(7);
         while(grid.getLastPieceLine(random_number)==0){
-            System.out.println(grid.getLastPieceLine(random_number));
             random_number = new Random().nextInt(7);
         }
         return random_number;
@@ -208,40 +207,32 @@ public class Game {
             try{
                 for (Combination combination : list_combinations) {
                     if(combination.getType()=="vertical" ){
-                        System.out.println("path vertical");
 
                         if(combination.getPieces().size()>2 &&combination.getPieces().get(combination.getPieces().size()-1).getColumn() <ROWS-1){
-                            System.out.println("Combinaison vertical deleted");
                             list_combinations.remove(combination);
                             return combination.getPieces().get(0).getColumn();
                         }
                     }
                     if(combination.getType()=="horizontal"){
 
-                        System.out.println("path horizontal");
-
                         if(combination.getPieces().size()>2){
                             int left_column = getColumnMin(combination.getPieces())-1;
                             int right_column = getColumnMax(combination.getPieces())+1;
             
                             //Conditions pour remove une combinaison
-                            if(left_column<0){
+                            if(left_column<=0){
                                 if(right_column>=COLS-1){
-                                    System.out.println("Combinaison horizontal deleted");
                                     list_combinations.remove(combination);
                                 }
                                 else if(grid.getGrid()[combination.getPieces().get(0).getLine()][right_column].getColor() !=null){
-                                    System.out.println("Combinaison horizontal deleted");
                                     list_combinations.remove(combination);
                                 }
                             }
                             else if(grid.getGrid()[combination.getPieces().get(0).getLine()][left_column].getColor() !=null){
                                 if(right_column>=COLS-1){
-                                    System.out.println("Combinaison horizontal deleted");
                                     list_combinations.remove(combination);
                                 }
                                 else if(grid.getGrid()[combination.getPieces().get(0).getLine()][right_column].getColor() !=null){
-                                    System.out.println("Combinaison horizontal deleted");
                                     list_combinations.remove(combination);
                                 }
                             }
@@ -268,16 +259,11 @@ public class Game {
                             }
                             
                             //Droite
-                            System.out.println("A");
                             if(right_column-1<COLS-1){ //Si on est pas dans la colonne tout à droite
-                                System.out.println("B");
                                 int line = combination.getPieces().get(0).getLine();
                                 if(grid.getGrid()[line][right_column].getColor() ==null){//Si colonne+1 de la pièce à droite est vide
-                                    System.out.println("C");
                                     if(line!=ROWS-1){//Si on est pas dans la ligne du bas
-                                        System.out.println("D");
                                         if(grid.getGrid()[line+1][right_column].getColor()!=null){ // On vérifie que la case colonne à droite de la piece + ligne+1 est une case pleine
-                                            System.out.println("E");
                                             if(grid.getGrid()[line][left_column].getColor()!=null){
                                                 //list_combinations.remove(combination);
                                             }
@@ -292,8 +278,6 @@ public class Game {
                         }
                     }
                     if(combination.getType()=="first-diagonal"){
-
-                        System.out.println("path : first diagonal");
             
                         if(combination.getPieces().size()>2){
                             int left_column = getColumnMin(combination.getPieces())-1;
@@ -301,14 +285,12 @@ public class Game {
                             int up_line = getLineMin(combination.getPieces())-1;
                             int bottom_line = getLineMax(combination.getPieces())+1;
 
-                             if(left_column<0 || bottom_line-1>=ROWS-1){
+                             if(left_column<=0 || bottom_line-1>=ROWS-1){
                             
                                 if(right_column>=COLS-1 || up_line<0){
-                                    System.out.println("Combinaison first diagonal deleted");
                                     list_combinations.remove(combination);
                                 }
                                 else if(grid.getGrid()[up_line][right_column].getColor()!=null){
-                                    System.out.println("Combinaison first diagonal deleted");
                                     list_combinations.remove(combination);
                                 }
                              }
@@ -316,11 +298,9 @@ public class Game {
                              else if(grid.getGrid()[bottom_line][left_column].getColor()!=null){
                                 
                                 if(right_column>=COLS-1 && up_line<0){
-                                    System.out.println("Combinaison first diagonal deleted");;
                                     list_combinations.remove(combination);
                                 }
                                 else if(grid.getGrid()[up_line][right_column].getColor()!=null){
-                                    System.out.println("Combinaison first diagonal deleted");
                                     list_combinations.remove(combination);
                                 }
                              }                       
@@ -352,8 +332,6 @@ public class Game {
                     }
                         if(combination.getType()=="second-diagonal"){
 
-                            System.out.println("path : second diagonal");
-
                             if(combination.getPieces().size()>2){
                                int left_column = getColumnMin(combination.getPieces())-1;
                                int right_column = getColumnMax(combination.getPieces())+1;
@@ -361,25 +339,21 @@ public class Game {
                                int bottom_line = getLineMax(combination.getPieces())+1;
 
 
-                                if(left_column<0 || up_line<0){
+                                if(left_column<=0 || up_line<=0){
 
                                     if(right_column>=COLS-1 || bottom_line >=ROWS-1){
-                                        System.out.println("Combinaison seconde diagonal deleted");
                                         list_combinations.remove(combination);
                                     }
                                     else if(grid.getGrid()[bottom_line][right_column].getColor()!=null){
-                                        System.out.println("Combinaison seconde diagonal deleted");
                                         list_combinations.remove(combination);
                                     }
 
                                 }
                                 else if(grid.getGrid()[up_line][left_column].getColor()!=null){
                                     if(right_column>=COLS-1 && bottom_line >=ROWS-1){
-                                        System.out.println("Combinaison seconde diagonal deleted");
                                         list_combinations.remove(combination);
                                     }
                                     else if(grid.getGrid()[bottom_line][right_column].getColor()!=null){
-                                        System.out.println("Combinaison seconde diagonal deleted");
                                         list_combinations.remove(combination);
                                     }
                                 }
@@ -397,8 +371,6 @@ public class Game {
                                }
                                //Droite
                                
-                               System.out.println(right_column);
-                               System.out.println(bottom_line);
                                if(right_column-1<COLS-1 && bottom_line-1<ROWS-1){//Si on est pas dans la colonne tout a droite ni dans la ligne tout en bas
                                    if(grid.getGrid()[bottom_line][right_column].getColor()==null){//On vérifie que case en bas à droite est vide
                                        if(bottom_line<ROWS-1){
@@ -408,7 +380,6 @@ public class Game {
                                            }
                                        }
                                        else{
-                                           System.out.println("D");
                                            return right_column;
                
                                        }
@@ -460,8 +431,6 @@ public class Game {
             list_combinations.add(combination);
         }
 
-
-        System.out.println(list_combinations);
         sortBySize();
         return getValidMove(grid);
        
@@ -562,7 +531,7 @@ static int niveau = 0;
 
             if(grid.checkVictory(piece)){
                 grid.printGrid();
-                System.out.println(player.getNom()+" a gagné la partie bravo ! ");
+                System.out.println(IA.getNom()+" a gagné la partie dommage ! ");
                 list_combinations = new ArrayList<>();
                 Menu.showMenu();
                 return;
@@ -738,6 +707,7 @@ static int niveau = 0;
         catch(IOException e){
             e.printStackTrace();
         }
+        Menu.AfficherMenu();
     }
 
 }

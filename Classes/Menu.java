@@ -40,8 +40,6 @@ public class Menu {
         }
     }
 
-    public static final String SEPARATEUR = ";";
-
     public static void AfficherMenu() {
         /*
          * Print menu gamemodes in console
